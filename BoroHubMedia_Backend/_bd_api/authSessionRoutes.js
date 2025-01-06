@@ -3,7 +3,7 @@ const UserController = require('../controllers/authSessionControllers');
 
 const router = express.Router();
 
-// Routes
+// Member Authentication Routes
 router.post('/initializeAccount', (req, res) => {
   UserController.initializeAccount(req, res);
 });
