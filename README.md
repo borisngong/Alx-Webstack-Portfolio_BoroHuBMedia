@@ -216,8 +216,8 @@ Once the application is running, you can use a REST API client (like Postman or 
 
 ## Definitions
 
-- **Content**: Represents a post created by a user, including text content and optional media files
-- **Member**: Represents a registered user on the platform
+- **Content**: Represents a post created by a member, including text content and optional media files
+- **Member**: Represents a registered member on the platform
 - **Middleware**: Functions that process requests and responses, including error handling
 - **Endpoints**: API routes that allow interaction with the application
 
