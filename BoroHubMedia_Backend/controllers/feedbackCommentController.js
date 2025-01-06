@@ -45,7 +45,7 @@ class FeedbackCommentController {
       // Save the comment
       await newComment.save();
 
-      // Optionally, update the post's comments array
+      // Update the post's comments array
       post.comments.push(newComment._id);
       await post.save();
 
@@ -153,7 +153,7 @@ class FeedbackCommentController {
 
     try {
       // Find the comment that contains the reply
-      const comment = await Comment.findOne({ ' replies._id': replyId });
+      const comment = await Comment.findOne({ 'replies._id': replyId });
       if (!comment) {
         throw new BDERROR('Comment not found', 404);
       }
@@ -269,9 +269,9 @@ class FeedbackCommentController {
   }
 
   /**
-   * Deletes a comment along with its likes and replies
-   * @param {Object} req - The request object
-   * @param {Object} res - The response object
+   * Deletes a comment along with its likes and replies.
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
    * @returns {Promise<void>}
    */
   static async deleteCommentController(req, res) {
@@ -284,7 +284,7 @@ class FeedbackCommentController {
         throw new BDERROR('Comment not found', 404);
       }
 
-      // Delete the likes
+      // Delete the likes from the associated content
       await Content.updateMany(
         { comments: commentId },
         { $pull: { comments: commentId } },
