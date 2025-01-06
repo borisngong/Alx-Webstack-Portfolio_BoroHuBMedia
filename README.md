@@ -162,50 +162,56 @@ Once the application is running, you can use a REST API client (like Postman or 
 ## Project Structure
 
 ```plaintext
-├── .env                         - Environment variables
-├── .eslintrc.js                 - ESLint configuration
-├── .gitignore                   - Git ignore file
-├── _bd_api                      - API routes
-│   ├── authSessionRoutes.js     - API routes for user authentication
-│   ├── contentPostRoutes.js     - API routes for content posts
-│   ├── feedbackCommentRoutes.js  - API routes for comments
-│   └── membersRoutes.js         - API routes for member management
-├── _bdmainEntry.js              - Entry point for the application
-├── babel.config.js              - Babel configuration
-├── configurations                - Configuration files
-│   ├── databaseSetup.js         - Database connection setup
-│   └── environmentLoader.js     - Environment variable loader
-├── controllers                  - Controller files
-│   ├── authSessionControllers.js - User authentication controllers
-│   ├── contentPostController.js  - Content post controllers
-│   ├── feedbackCommentController.js - Comment controllers
-│   └── memberControllers.js      - Member controllers
-├── coreModels                   - Core data models
-│   ├── chatConversation.js       - Chat conversation model
-│   ├── chatEntry.js             - Chat entry model
-│   ├── contentPost.js           - Content post model
-│   ├── feedbackComment.js        - Comment model
-│   ├── memberSchema.js          - Member model
-│   └── storySchema.js           - Story model
-├── coreUtils                    - Utility functions
-│   ├── _bd_responseHandlers.js   - Response utility functions
-│   ├── create-fileUrl.js        - Create file URL utility
-│   ├── sanitized.js             - Sanitize input utility
-│   └── tokenUtils.js            - Token utility functions
-├── docs                         - Documentation files
-│   └── swagger.json             - Swagger API documentation
-├── media                        - Media uploads
-│   └── images                   - Image files
-├── middlewares                  - Middleware functions
-│   ├── authIsAdmin.js           - Admin authentication middleware
-│   ├── authenticateToken.js      - Token authentication middleware
-│   ├── handleErrors.js          - Error handling middleware
-│   └── mediaUploads.js          - Media upload middleware
-├── package-lock.json            - Dependency lock file
-├── package.json                 - Project metadata
-├── config.js                    - Application configuration
-├── serverCore.js                - Server setup and configuration
-└── README.md                    - Project documentation
+├├── BoroHubMedia_Backend          # Root directory for the backend of the BoroHubMedia application
+│   ├── .env                       # Environment variables for configuration (e.g., database URI, secret keys)
+│   ├── .eslintrc.js                # ESLint configuration file for maintaining code quality
+│   ├── .gitignore                  # Git ignore file specifying files and directories to ignore in version control
+│   ├── _bd_api                     # Directory containing API route definitions
+│   │   ├── authSessionRoutes.js    # Routes for user authentication actions (login, logout)
+│   │   ├── contentPostRoutes.js    # Routes for managing content posts (create, update, delete)
+│   │   ├── feedbackCommentRoutes.js # Routes for handling comments on posts
+│   │   └── membersRoutes.js        # Routes for managing member-related actions (follow, unfollow)
+│   ├── _bdmainEntry.js             # Main entry point for the application
+│   ├── babel.config.js             # Babel configuration file for transpiling JavaScript
+│   ├── config.js                   # Application configuration settings
+│   ├── configurations              # Directory for configuration scripts
+│   │   ├── databaseSetup.js        # Script for setting up the database connection
+│   │   └── environmentLoader.js    # Script for loading environment variables
+│   ├── controllers                 # Directory containing controller logic for various functionalities
+│   │   ├── authSessionControllers.js # Controllers for user authentication logic
+│   │   ├── contentPostController.js  # Controllers for managing content post logic
+│   │   ├── feedbackCommentController.js # Controllers for handling comment logic
+│   │   └── memberControllers.js   # Controllers for managing member-related logic
+│   ├── coreModels                # Directory for core data models used in the application
+│   │   ├── chatConversation.js    # Model for chat conversations
+│   │   ├── chatEntry.js          # Model for individual chat entries
+│   │   ├── contentPost.js        # Model for content posts
+│   │   ├── feedbackComment.js     # Model for feedback comments on posts
+│   │   ├── memberSchema.js        # Schema for member data
+│   │   └── storySchema.js         # Schema for stories
+│   ├── coreUtils                 # Directory for utility functions and helpers
+│   │   ├── _bd_responseHandlers.js # Utility functions for handling API responses
+│   │   ├── create-fileUrl.js     # Utility for generating file URLs
+│   │   ├── sanitized.js          # Utility for sanitizing user inputs
+│   │   └── tokenUtils.js         # Utility functions for handling tokens (JWT, refresh tokens)
+│   ├── docs                      # Directory for documentation files
+│   │   ├── postman_collection.json # Postman collection for API testing
+│   │   └── swagger.json          # Swagger API documentation file
+│   ├── media                     # Directory for media files (e.g., images)
+│   │   └── images                # Subdirectory containing image files
+│   ├── middlewares               # Directory for middleware functions
+│   │   ├── authIsAdmin.js        # Middleware for checking admin permissions
+│   │   ├── authenticateToken.js   # Middleware for token authentication
+│   │   ├── handleErrors.js       # Middleware for error handling
+│   │   ├── mediaUploads.js       # Middleware for handling media uploads
+│   │   └── setupMiddleware.js     # Middleware setup configuration
+│   ├── package-lock.json         # Dependency lock file generated by npm
+│   ├── package.json              # Project metadata and dependencies
+│   ├── serverCore.js             # Core server setup and configuration
+│   └── swagger                   # Directory for Swagger-related files
+│       ├── postmanSetup.js       # Setup file for Postman
+│       └── setupSwagger.js       # Setup file for Swagger documentation
+└── README.md                     # Project documentation file
 ```
 
 ## Definitions
