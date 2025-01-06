@@ -107,8 +107,6 @@ DB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retr
    npm start
    ```
 
-````
-
 ## Basic Usage
 
 Once the application is running, you can use a REST API client (like Postman or Insomnia) to interact with the following endpoints:
@@ -136,7 +134,9 @@ Once the application is running, you can use a REST API client (like Postman or 
 - **PUT /members/coverImageUpload/:memberId**: Add member cover picture
 
 ### Content Post Management Endpoints
+
 - **POST /content/posts**: Create a new post
+
   - **Request Body**:
     ```json
     {
@@ -220,14 +220,13 @@ Once the application is running, you can use a REST API client (like Postman or 
 For detailed API usage and examples, refer to the [Postman Documentation](#).
 
 ## About the Author
+
 Hi, I'm Ngong Boris Kukwah, a Fullstack Software Engineer specializing in Backend Development and an ALX Africa student. I’m passionate about building efficient, scalable, and robust applications. This project reflects my dedication to learning and implementing best practices in software development
 
 ### Connect with me
-- *- **Name**: Ngong Boris Kukwah
+
+- \*- **Name**: Ngong Boris Kukwah
 - **Email**: [borisngong@gmail.com](mailto:borisngong@gmail.com)
 - **LinkedIn**: [Ngong Boris Kukwah](https://www.linkedin.com/in/ngong-boris-kukwah-34063821a/)
 - **Twitter**: [boro_didier1](https://x.com/boro_didier1)
 - **GitHub**: [borisngong](https://github.com/borisngong)
-
-
-````
