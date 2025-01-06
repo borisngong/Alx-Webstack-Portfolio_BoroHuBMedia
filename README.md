@@ -231,7 +231,7 @@ Hi, I'm Ngong Boris Kukwah, a Fullstack Software Engineer specializing in Backen
 
 ### Connect with me
 
-- \*- **Name**: Ngong Boris Kukwah
+- **Name**: Ngong Boris Kukwah
 - **Email**: [borisngong@gmail.com](mailto:borisngong@gmail.com)
 - **LinkedIn**: [Ngong Boris Kukwah](https://www.linkedin.com/in/ngong-boris-kukwah-34063821a/)
 - **Twitter**: [boro_didier1](https://x.com/boro_didier1)
