@@ -5,6 +5,7 @@ const router = express.Router();
 
 const ContentPostController = require('../controllers/contentPostController');
 
+// Content Post Routes
 router.post('/create-content', resource.array('media', 4), (req, res) => {
   ContentPostController.createContentPost(req, res);
 });
