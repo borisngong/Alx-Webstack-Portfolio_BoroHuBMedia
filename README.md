@@ -162,50 +162,50 @@ Once the application is running, you can use a REST API client (like Postman or 
 ## Project Structure
 
 ```plaintext
-├── .env - Environment variables
-├── .eslintrc.js - ESLint configuration
-├── .gitignore - Git ignore file
-├── _bd_api - API routes
-│   ├── authSessionRoutes.js - API routes for user authentication
-│   ├── contentPostRoutes.js - API routes for content posts
-│   ├── feedbackCommentRoutes.js - API routes for comments
-│   └── membersRoutes.js
-├── _bdmainEntry.js - Entry point for the application
-├── babel.config.js
-├── configurations
-│   ├── databaseSetup.js - Database connection setup
-│   └── environmentLoader.js - Environment variable loader
-├── controllers
+├── .env                         - Environment variables
+├── .eslintrc.js                 - ESLint configuration
+├── .gitignore                   - Git ignore file
+├── _bd_api                      - API routes
+│   ├── authSessionRoutes.js     - API routes for user authentication
+│   ├── contentPostRoutes.js     - API routes for content posts
+│   ├── feedbackCommentRoutes.js  - API routes for comments
+│   └── membersRoutes.js         - API routes for member management
+├── _bdmainEntry.js              - Entry point for the application
+├── babel.config.js              - Babel configuration
+├── configurations                - Configuration files
+│   ├── databaseSetup.js         - Database connection setup
+│   └── environmentLoader.js     - Environment variable loader
+├── controllers                  - Controller files
 │   ├── authSessionControllers.js - User authentication controllers
-│   ├── contentPostController.js - Content post controllers
+│   ├── contentPostController.js  - Content post controllers
 │   ├── feedbackCommentController.js - Comment controllers
-│   └── memberControllers.js - Member controllers
-├── coreModels
-│   ├── chatConversation.js - Chat conversation model
-│   ├── chatEntry.js - Chat entry model
-│   ├── contentPost.js - Content post model
-│   ├── feedbackComment.js - Comment model
-│   ├── memberSchema.js - Member model
-│   └── storySchema.js - Story model
-├── coreUtils
-│   ├── _bd_responseHandlers.js - Response utility functions
-│   ├── create-fileUrl.js - Create file URL utility
-│   ├── sanitized.js - Sanitize input utility
-│   └── tokenUtils.js  - Token utility functions
-├── docs
-│   └── swagger.json - Swagger API documentation
-├── media
-│   └── images - Media uploads
-├── middlewares
-│   ├── authIsAdmin.js - Admin authentication middleware
-│   ├── authincateToken.js - Token authentication middleware
-│   ├── handleErrors.js - Error handling middleware
-│   └── mediaUploads.js - Media upload middleware
-├── package-lock.json - Dependency lock file
-├── package.json - Project metadata
-├── config.js - Application configuration
-├── serverCore.js - Server setup and configuration
-└── README.md - Project documentation
+│   └── memberControllers.js      - Member controllers
+├── coreModels                   - Core data models
+│   ├── chatConversation.js       - Chat conversation model
+│   ├── chatEntry.js             - Chat entry model
+│   ├── contentPost.js           - Content post model
+│   ├── feedbackComment.js        - Comment model
+│   ├── memberSchema.js          - Member model
+│   └── storySchema.js           - Story model
+├── coreUtils                    - Utility functions
+│   ├── _bd_responseHandlers.js   - Response utility functions
+│   ├── create-fileUrl.js        - Create file URL utility
+│   ├── sanitized.js             - Sanitize input utility
+│   └── tokenUtils.js            - Token utility functions
+├── docs                         - Documentation files
+│   └── swagger.json             - Swagger API documentation
+├── media                        - Media uploads
+│   └── images                   - Image files
+├── middlewares                  - Middleware functions
+│   ├── authIsAdmin.js           - Admin authentication middleware
+│   ├── authenticateToken.js      - Token authentication middleware
+│   ├── handleErrors.js          - Error handling middleware
+│   └── mediaUploads.js          - Media upload middleware
+├── package-lock.json            - Dependency lock file
+├── package.json                 - Project metadata
+├── config.js                    - Application configuration
+├── serverCore.js                - Server setup and configuration
+└── README.md                    - Project documentation
 ```
 
 ## Definitions
