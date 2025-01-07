@@ -1,11 +1,13 @@
 const express = require("express");
 
-// Error class to handle specific errors with status codes
+/**
+ * Custom error class to handle application errors
+ */
 class BDERROR extends Error {
   /**
-   * Creates an instance of BDERROR.
-   * @param {string} message - The error message.
-   * @param {number} [status=500] - The HTTP status code.
+   * Creates an instance of BDERROR
+   * @param {string} message - The error message
+   * @param {number} [status=500] - The HTTP status code
    */
   constructor(message, status = 500) {
     super(message);
@@ -16,11 +18,11 @@ class BDERROR extends Error {
 }
 
 /**
- * Error handler middleware to handle errors in the application.
- * @param {Object} err - The error object.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @param {Function} next - The next middleware function.
+ * Error handler middleware to handle errors in the application
+ * @param {Object} err - The error objec
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
  */
 const errorHandler = (err, req, res, next) => {
   console.error(err);
@@ -31,8 +33,7 @@ const errorHandler = (err, req, res, next) => {
       status: err.status,
     });
   }
-
-  // Handle generic internal server errors
+  // If the error is not an instance of BDERROR, return a generic error message
   return res.status(500).json({
     error: "Internal server error",
     status: 500,
