@@ -1,5 +1,3 @@
-const express = require("express");
-
 /**
  * Custom error class to handle application errors
  */
@@ -24,7 +22,7 @@ class BDERROR extends Error {
  * @param {Object} res - The response object
  * @param {Function} next - The next middleware function
  */
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
   console.error(err);
 
   if (err instanceof BDERROR) {
@@ -35,7 +33,7 @@ const errorHandler = (err, req, res, next) => {
   }
   // If the error is not an instance of BDERROR, return a generic error message
   return res.status(500).json({
-    error: "Internal server error",
+    error: 'Internal server error',
     status: 500,
   });
 };
