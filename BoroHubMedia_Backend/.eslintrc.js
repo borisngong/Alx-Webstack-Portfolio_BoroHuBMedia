@@ -24,9 +24,10 @@ module.exports = {
       "error",
       "ignorePackages",
       {
-        js: "never", // Allow .js extensions in imports
+        js: "never", // Change the default value of "always" to "never"
       },
     ],
+    "jest/require-hook": "off", // Disable the jest/require-hook rule
   },
   overrides: [
     {
