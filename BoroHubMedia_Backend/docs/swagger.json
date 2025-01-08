@@ -1,0 +1,201 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "BoroHub API",
+    "version": "1.0.0",
+    "description": "API documentation for managing user sessions and accounts in BoroHub."
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "securityDefinitions": {
+    "cookieAuth": {
+      "type": "apiKey",
+      "in": "cookie",
+      "name": "accessToken"
+    },
+    "refreshTokenAuth": {
+      "type": "apiKey",
+      "in": "cookie",
+      "name": "refreshToken"
+    },
+    "bearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "paths": {
+    "/auth/initializeAccount": {
+      "post": {
+        "summary": "Initialize Account",
+        "description": "Creates a new user account.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User account details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InitializeAccountRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account initialized successfully"
+          },
+          "400": {
+            "description": "Bad request (e.g., missing fields, duplicate email or handle)"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/auth/accessAccount": {
+      "post": {
+        "summary": "Access Account",
+        "description": "Authenticates a user and provides access and refresh tokens.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login details (email/handle and password)",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessAccountRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful with access and refresh tokens set in cookies",
+            "headers": {
+              "Set-Cookie": {
+                "description": "Sets accessToken and refreshToken in cookies",
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/auth/endSession": {
+      "get": {
+        "summary": "End Session",
+        "description": "Ends the user session by clearing cookies.",
+        "responses": {
+          "200": {
+            "description": "Session ended successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/auth/getUserSession": {
+      "get": {
+        "summary": "Get User Session",
+        "description": "Retrieves the current user's session information.",
+        "security": [
+          {
+            "cookieAuth": [],
+            "refreshTokenAuth": [],
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session data retrieved successfully"
+          },
+          "401": {
+            "description": "Unauthorized (e.g., no token provided or invalid token)"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/auth/refreshToken": {
+      "post": {
+        "summary": "Refresh Access Token",
+        "description": "Uses the refresh token to obtain a new access token.",
+        "security": [
+          {
+            "refreshTokenAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New access token issued successfully"
+          },
+          "401": {
+            "description": "Invalid or expired refresh token"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "InitializeAccountRequest": {
+      "type": "object",
+      "properties": {
+        "hashedPassword": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string",
+          "format": "email"
+        },
+        "handle": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "aboutMe": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "required": ["hashedPassword", "emailAddress", "handle", "fullName"]
+    },
+    "AccessAccountRequest": {
+      "type": "object",
+      "properties": {
+        "emailAddress": {
+          "type": "string",
+          "format": "email"
+        },
+        "handle": {
+          "type": "string"
+        },
+        "hashedPassword": {
+          "type": "string"
+        }
+      },
+      "required": ["emailAddress", "hashedPassword"]
+    }
+  }
+}
