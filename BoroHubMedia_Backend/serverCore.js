@@ -1,14 +1,13 @@
 const express = require('express');
 const setupMiddleware = require('./middlewares/setupMiddleware');
 const setupSwagger = require('./swagger/setupSwagger');
-const setupPostman = require('./swagger/postmanSetup');
 const memberRoute = require('./_bd_api/membersRoutes');
 const authRoute = require('./_bd_api/authSessionRoutes');
 const contentPostRoute = require('./_bd_api/contentPostRoutes');
 const feedbackCommentRoute = require('./_bd_api/feedbackCommentRoutes');
 const boroHubMediaAPIDB = require('./configurations/databaseSetup');
 const { errorHandler } = require('./middlewares/handleErrors');
-const setupEnvironment = require('./configurations/environmentLoader'); // Import environment loader
+const setupEnvironment = require('./configurations/environmentLoader');
 
 // Load environment variables
 setupEnvironment();
@@ -22,9 +21,6 @@ const setupServer = () => {
 
   // Swagger setup
   setupSwagger(app);
-
-  // Postman setup
-  setupPostman(app);
 
   // Routes setup
   app.use('/api/auth', authRoute);
@@ -48,9 +44,6 @@ const startServer = async () => {
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     console.log(`Swagger Docs available at http://localhost:${port}/api-docs`);
-    console.log(
-      `Postman Docs available at http://localhost:${port}/postman-docs`,
-    );
   });
 };
 
