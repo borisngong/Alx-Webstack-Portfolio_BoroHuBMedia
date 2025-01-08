@@ -27,7 +27,6 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",
-    "postman-collection": "^4.5.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
