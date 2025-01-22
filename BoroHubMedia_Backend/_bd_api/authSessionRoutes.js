@@ -1,20 +1,22 @@
 const express = require('express');
-const MemberController = require('../controllers/authSessionControllers');
+const MemberAuthenticationController = require('../controllers/authSessionControllers');
+const { authenticateToken } = require('../middlewares/authIsAdmin');
+const { accessLimiter } = require('../middlewares/rateLimiter');
 
 const router = express.Router();
 
 // Member Auth Route
 router.post('/initializeAccount', (req, res) => {
-  MemberController.initializeAccount(req, res);
+  MemberAuthenticationController.initializeAccount(req, res);
 });
-router.post('/accessAccount', (req, res) => {
-  MemberController.accessAccount(req, res);
+router.post('/accessAccount', accessLimiter, (req, res) => {
+  MemberAuthenticationController.accessAccount(req, res);
 });
-router.get('/endSession', (req, res) => {
-  MemberController.endSession(req, res);
+router.get('/endSession', authenticateToken, (req, res) => {
+  MemberAuthenticationController.endSession(req, res);
 });
-router.get('/getUserSession', (req, res) => {
-  MemberController.getUserSession(req, res);
+router.get('/getMemberSession', authenticateToken, (req, res) => {
+  MemberAuthenticationController.getMemberSession(req, res);
 });
 
 module.exports = router;
