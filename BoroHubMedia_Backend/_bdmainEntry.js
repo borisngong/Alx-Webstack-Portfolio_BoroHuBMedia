@@ -1,8 +1,8 @@
-const dotenv = require("dotenv");
-const { setupServer, boroHubMediaAPIDB } = require("./serverCore");
+const dotenv = require('dotenv');
+const { setupServer, boroHubMediaAPIDB } = require('./serverCore');
 
 // Load environment variables if not in test environment
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV !== 'test') {
   dotenv.config();
 }
 
@@ -25,7 +25,7 @@ const startServerInstance = () => {
 };
 
 // Start the server only if not in test environment
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV !== 'test') {
   startServerInstance();
 }
 
