@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
+const initializeAccountSchema = require("./schemas/initializeAccountSchema");
 
 const memberSchema = new Schema(
   {
@@ -47,6 +48,7 @@ const memberSchema = new Schema(
       type: String,
       default: "",
     },
+    chats: [{ type: mongoose.Schema.Types.ObjectId, ref: "chat" }],
     connections: {
       followers: [
         {
