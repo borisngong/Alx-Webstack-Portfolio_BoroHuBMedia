@@ -1,43 +1,48 @@
 const express = require('express');
 const resource = require('../middlewares/mediaUploads');
+const { authenticateToken } = require('../middlewares/authIsAdmin');
 
 const router = express.Router();
 
 const ContentPostController = require('../controllers/contentPostController');
 
 // Content Post Routes
-router.post('/create-content', resource.array('media', 4), (req, res) => {
-  ContentPostController.createContentPost(req, res);
-});
 
 router.post(
   '/create-content-images/:memberId',
-  resource.array('media', 10),
+  authenticateToken,
+  resource.array('media', 4),
   (req, res) => {
-    ContentPostController.createContentPostWithImages(req, res);
+    ContentPostController.createContentPost(req, res);
   },
 );
 
-router.put('/update-content/:postId', (req, res) => {
-  ContentPostController.updateContentPost(req, res);
+// Route to update content
+router.put(
+  '/update-content/:postId',
+  authenticateToken,
+  resource.array('media'),
+  (req, res) => {
+    ContentPostController.updateContentPost(req, res);
+  },
+);
+
+router.get('/get-member-content/:memberId', authenticateToken, (req, res) => {
+  ContentPostController.getAllMemberPosts(req, res);
 });
 
-router.get('/get-content/:memberId', (req, res) => {
-  ContentPostController.getContentController(req, res);
+// Retrieve specific content post
+router.get('/get-content/:postId', authenticateToken, (req, res) => ContentPostController.getContentPost(req, res));
+
+router.put('/like-content/:postId', authenticateToken, (req, res) => {
+  ContentPostController.likeContentPost(req, res);
 });
 
-router.get('/get-content/:memberId', (req, res) => ContentPostController.getContent(req, res));
-
-router.put('/like-content/:postId', (req, res) => {
-  ContentPostController.likeContentPostController(req, res);
+router.put('/unlike-content/:postId', authenticateToken, (req, res) => {
+  ContentPostController.unlikeContentPost(req, res);
 });
-
-router.put('/unlike-content/:postId', (req, res) => {
-  ContentPostController.unlikeContentPostController(req, res);
-});
-
-router.delete('/delete-content/:postId', (req, res) => {
-  ContentPostController.deleteContentPostController(req, res);
+router.delete('/delete-content/:postId', authenticateToken, (req, res) => {
+  ContentPostController.deleteContentPost(req, res);
 });
 
 module.exports = router;
