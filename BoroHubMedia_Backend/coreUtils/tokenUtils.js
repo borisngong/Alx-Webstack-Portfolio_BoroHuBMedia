@@ -21,8 +21,8 @@ const generateAccessToken = (member) => {
  * @returns {string} - A signed JWT refresh token containing the member's ID
  */
 const generateRefreshToken = (member) => {
-  return jwt.sign({ id: member._id }, process.env.REFRESH_JWT, {
-    expiresIn: process.env.EXP_JWT,
+  return jwt.sign({ id: member._id }, process.env.SKEY_JWT_REFRESH, {
+    expiresIn: process.env.EXP_JWT_REFRESH,
   });
 };
 
