@@ -17,7 +17,7 @@ class BDERROR extends Error {
 
 /**
  * Error handler middleware to handle errors in the application
- * @param {Object} err - The error objec
+ * @param {Object} err - The error object
  * @param {Object} req - The request object
  * @param {Object} res - The response object
  * @param {Function} next - The next middleware function
@@ -31,6 +31,7 @@ const errorHandler = (err, req, res) => {
       status: err.status,
     });
   }
+
   // If the error is not an instance of BDERROR, return a generic error message
   return res.status(500).json({
     error: 'Internal server error',
