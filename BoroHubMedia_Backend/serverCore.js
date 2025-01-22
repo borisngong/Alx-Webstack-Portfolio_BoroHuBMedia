@@ -1,10 +1,14 @@
 const express = require('express');
+const path = require('path');
+const helmet = require('helmet');
 const setupMiddleware = require('./middlewares/setupMiddleware');
 const setupSwagger = require('./swagger/setupSwagger');
 const memberRoute = require('./_bd_api/membersRoutes');
 const authRoute = require('./_bd_api/authSessionRoutes');
 const contentPostRoute = require('./_bd_api/contentPostRoutes');
 const feedbackCommentRoute = require('./_bd_api/feedbackCommentRoutes');
+const chatRoute = require('./_bd_api/chatRoutes');
+const { apiLimiter } = require('./middlewares/rateLimiter');
 const boroHubMediaAPIDB = require('./configurations/databaseSetup');
 const { errorHandler } = require('./middlewares/handleErrors');
 const setupEnvironment = require('./configurations/environmentLoader');
@@ -22,13 +26,22 @@ const setupServer = () => {
   // Swagger setup
   setupSwagger(app);
 
+  // Use path to serve static files
+  app.use(
+    '/media/images',
+    express.static(path.join(__dirname, 'media/images')),
+  );
+  app.use(helmet());
+  // Rate limiter for general API endpoints setup to limit requests
+  app.use('/api', apiLimiter);
+
   // Routes setup
   app.use('/api/auth', authRoute);
   app.use('/api/content', contentPostRoute);
   app.use('/api/member', memberRoute);
   app.use('/api/comment', feedbackCommentRoute);
+  app.use('/api/chat', chatRoute);
 
-  // Error handling middleware
   app.use(errorHandler);
 
   return app;
