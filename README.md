@@ -517,58 +517,59 @@ The Postman collection link can be found below in the documentation section.
 ## Project Structure
 The following is the directory structure of the project, highlighting key components:
 ```plaintext
-├── AUTHOR                          # Author information
-├── BoroHubMedia_Backend            # Main backend directory
-│   ├── .env                        # Environment variables file
-│   ├── .eslintrc.js                # ESLint configuration file
-│   ├── .gitignore                  # Git ignore rules
-│   ├── config.js                   # General configuration settings
-│   ├── package.json                # Project dependencies metadata
-│   ├── package-lock.json           # Dependency versions lock
-│   ├── serverCore.js               # Server initialization logic
-│   ├── _bdmainEntry.js             # Main entry point file
-│   ├── docs                        # API documentation files
-│   │   └── swagger.json            # Swagger API documentation
-│   ├── media                       # Media files directory
-│   │   └── images                  # Subdirectory for images
-│   │       ├── avatars             # Avatar image files
-│   │       ├── coverImages         # Cover image files
-│   │       └── mediaFiles          # Other media files
-│   ├── _bd_api                     # API route definitions
-│   │   ├── authSessionRoutes.js    # Authentication routes file
-│   │   ├── chatRoutes.js           # Chat routes file
-│   │   ├── feedbackCommentRoutes.js # Feedback comment routes
-│   │   └── membersRoutes.js        # Member routes file
-│   ├── configurations               # Configuration files directory
-│   │   ├── databaseSetup.js        # Database setup logic
-│   │   └── environmentLoader.js     # Load environment variables
-│   ├── controllers                  # Request handling logic
-│   │   ├── authSessionControllers.js # Authentication logic controller
-│   │   ├── chatController.js        # Chat logic controller
-│   │   ├── feedbackCommentController.js # Feedback comment logic
-│   │   └── memberControllers.js     # Member management logic
-│   ├── coreModels                   # Core data models directory
-│   │   ├── chat.js                  # Chat data model
-│   │   ├── chatEntry.js             # Chat entry model
-│   │   ├── feedbackComment.js       # Feedback comment model
-│   │   ├── memberSchema.js          # Member schema definition
-│   │   └── schemas                  # Additional schema files
-│   │       └── initializeAccountSchema.js # Account initialization schema
-│   ├── coreUtils                    # Utility functions directory
-│   │   ├── _bd_responseHandlers.js   # Response handling utilities
-│   │   ├── create-fileUrl.js        # File URL creation utility
-│   │   ├── sanitized.js             # Data sanitization utilities
-│   │   └── tokenUtils.js            # Token management utilities
-│   ├── middlewares                  # Middleware functions directory
-│   │   ├── authIsAdmin.js           # Admin authentication middleware
-│   │   ├── handleErrors.js          # Error handling middleware
-│   │   ├── mediaUploads.js          # Media upload middleware
-│   │   ├── rateLimiter.js           # Rate limiting middleware
-│   │   └── setupMiddleware.js       # Middleware setup logic
-│   └── swagger                      # Swagger setup files directory
-│       └── setupSwagger.js          # Swagger initialization logic
+├── AUTHOR                                 # Author information
+├── BoroHubMedia_Backend                   # Main backend directory
+│   ├── .env                               # Environment variables file
+│   ├── .eslintrc.js                       # ESLint configuration file
+│   ├── .gitignore                         # Git ignore rules
+│   ├── config.js                          # General configuration settings
+│   ├── package.json                       # Project dependencies metadata
+│   ├── package-lock.json                  # Dependency versions lock
+│   ├── serverCore.js                      # Server initialization logic
+│   ├── _bdmainEntry.js                    # Main entry point file
+│   ├── docs                               # API documentation files
+│   │   └── swagger.json                   # Swagger API documentation
+│   ├── media                              # Media files directory
+│   │   └── images                         # Subdirectory for images
+│   │       ├── avatars                    # Avatar image files
+│   │       ├── coverImages                # Cover image files
+│   │       └── mediaFiles                 # Other media files
+│   ├── _bd_api                            # API route definitions
+│   │   ├── authSessionRoutes.js           # Authentication routes file
+│   │   ├── chatRoutes.js                  # Chat routes file
+│   │   ├── feedbackCommentRoutes.js       # Feedback comment routes
+│   │   └── membersRoutes.js               # Member routes file
+│   ├── configurations                     # Configuration files directory
+│   │   ├── databaseSetup.js               # Database setup logic
+│   │   └── environmentLoader.js           # Load environment variables
+│   ├── controllers                        # Request handling logic
+│   │   ├── authSessionControllers.js      # Authentication logic controller
+│   │   ├── chatController.js              # Chat logic controller
+│   │   ├── feedbackCommentController.js   # Feedback comment logic
+│   │   └── memberControllers.js           # Member management logic
+│   ├── coreModels                         # Core data models directory
+│   │   ├── chat.js                        # Chat data model
+│   │   ├── chatEntry.js                   # Chat entry model
+│   │   ├── feedbackComment.js             # Feedback comment model
+│   │   ├── memberSchema.js                # Member schema definition
+│   │   └── schemas                        # Additional schema files
+│   │       └── initializeAccountSchema.js # Account initialization schema with Joi for validations
+│   ├── coreUtils                          # Utility functions directory
+│   │   ├── _bd_responseHandlers.js        # Response handling utilities
+│   │   ├── create-fileUrl.js              # File URL creation utility
+│   │   ├── sanitized.js                   # Data sanitization utilities
+│   │   └── tokenUtils.js                  # Token management utilities genrates access and refreh tokens
+│   ├── middlewares                        # Middleware functions directory
+│   │   ├── authIsAdmin.js                 # Admin authentication middleware
+│   │   ├── handleErrors.js                # Error handling middleware
+│   │   ├── mediaUploads.js                # Media upload middleware 
+│   │   ├── rateLimiter.js                 # Rate limiting middleware preventing server overload
+│   │   └── setupMiddleware.js             # Middleware setup logic
+│   └── swagger                            # Swagger setup files directory
+│       └── setupSwagger.js                # Swagger initialization logic
+|
 └── README.md
-```                       # Project documentation file
+```                                        # Project documentation file
 
 ## Definitions
 
