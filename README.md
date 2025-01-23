@@ -65,12 +65,12 @@ Follow the links above to download and install Node.js and MongoDB.
 ## Running the API
 
 1. ### Clone Repository
-   **Clone the repository** using the following command in your terminal:
+   Clone the repository using the following command in your terminal:
 
    ```bash
    git clone https://github.com/borisngong/Alx-Webstack-Portfolio_BoroHuBMedia.git
    cd BoroHubMedia
-```
+   ```
 2. ### Install Dependencies
 
 Install the required dependencies by running the following commands:
