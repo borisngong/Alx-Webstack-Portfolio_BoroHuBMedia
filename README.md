@@ -70,11 +70,11 @@ Follow the links above to download and install Node.js and MongoDB.
    ```bash
    git clone https://github.com/borisngong/Alx-Webstack-Portfolio_BoroHuBMedia.git
    cd Alx-Webstack-Portfolio_BoroHuBMedia
-   cd BoroHubMedia
+   cd BoroHubMedia_Backend
 
 2. ### Install Dependencies
 
-Install the required dependencies by running the following commands:
+Install the required dependencies by running the following command once in the BoroHubmedia_Backend directory:
 
 ```bash
 npm install
