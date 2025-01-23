@@ -63,9 +63,9 @@ Before running the API, make sure you have the following software installed:
 Follow the links above to download and install Node.js and MongoDB.
 
 ## Running the API
-In order to tun the api you will follow these steps
+In order to run the api you will have to follow these **Steps**:
 
-### Step 1. ### Clone Repository
+### Step 1. Clone Repository
    Clone the repository using the following command in your terminal:
 
    ```bash
@@ -73,7 +73,7 @@ In order to tun the api you will follow these steps
    cd Alx-Webstack-Portfolio_BoroHuBMedia
    cd BoroHubMedia_Backend
 
-2. ### Install Dependencies
+### Step 2.  Install Dependencies
 
 Install the required dependencies by running the following command:
 
@@ -81,7 +81,7 @@ Install the required dependencies by running the following command:
 npm install
 ````
 
-3. ### Set Up MongoDB Connection
+### Step 3. Set Up MongoDB Connection
 
 You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
@@ -98,7 +98,7 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
 ---
 
-### Create a `.env` File
+### Step 4. Create a `.env` File
 
 In BoroHubmedia_Backend directory, create a `.env` file to store your environment variables:
 
@@ -106,7 +106,7 @@ In BoroHubmedia_Backend directory, create a `.env` file to store your environmen
 touch .env
 ```
 
-5. ### Configure Environment Variables
+### Step 5. Configure Environment Variables
 
 Add the following variables to your `.env` file:
 
