@@ -516,7 +516,7 @@ The Postman collection link can be found below in the documentation section.
 
 ## Project Structure
 The following is the directory structure of the project, highlighting key components:
-````plaintext
+```plaintext
 ├── AUTHOR                                 # Author information
 ├── BoroHubMedia_Backend                   # Main backend directory
 │   ├── .env                               # Environment variables file
