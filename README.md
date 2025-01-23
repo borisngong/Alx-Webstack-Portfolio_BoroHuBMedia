@@ -236,7 +236,7 @@ The API's routes are organized under specific paths based on their functionaliti
 To access any of the above functionalities, append the relevant endpoint to the base URL. For example, to create a new content post, you would use:
 
 ```plaintext
-POST http://localhost:3000/api/content/create
+POST http://localhost:3000/api/content/create-content-images/
 ```
 ## API Endpoints
 
