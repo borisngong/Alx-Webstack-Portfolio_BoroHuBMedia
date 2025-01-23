@@ -61,8 +61,6 @@ Before running the API, make sure you have the following software installed:
 ## Installation Instructions
 
 Follow the links above to download and install Node.js and MongoDB.
-
-## Running the API
 In order to run the api you will have to follow these **Steps**:
 
 ### Step 1. Clone Repository
@@ -133,7 +131,7 @@ DB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retr
 
 ---
 
-### Running the Application
+### Running the API
 
 #### Start the Application
 
