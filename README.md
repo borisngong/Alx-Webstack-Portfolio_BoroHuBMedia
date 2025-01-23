@@ -72,6 +72,7 @@ In order to run the api you will have to follow these **Steps**:
    git clone https://github.com/borisngong/Alx-Webstack-Portfolio_BoroHuBMedia.git
    cd Alx-Webstack-Portfolio_BoroHuBMedia
    cd BoroHubMedia_Backend
+```
 
 ### Step 2.  Install Dependencies
 
