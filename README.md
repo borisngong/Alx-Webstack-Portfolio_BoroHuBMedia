@@ -63,8 +63,9 @@ Before running the API, make sure you have the following software installed:
 Follow the links above to download and install Node.js and MongoDB.
 
 ## Running the API
+In order to tun the api you will follow these steps
 
-1. ### Clone Repository
+### Step 1. ### Clone Repository
    Clone the repository using the following command in your terminal:
 
    ```bash
