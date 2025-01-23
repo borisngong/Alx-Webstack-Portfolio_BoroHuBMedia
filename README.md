@@ -69,7 +69,7 @@ In order to run the api you will have to follow these **Steps**:
    ```bash
    git clone https://github.com/borisngong/Alx-Webstack-Portfolio_BoroHuBMedia.git
    cd Alx-Webstack-Portfolio_BoroHuBMedia
-   cd BoroHubMedia_Backend
+   cd BoroHubMedia_Backend 
 ```
 
 ### Step 2.  Install Dependencies
@@ -99,7 +99,7 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
 ### Step 4. Create a `.env` File
 
-In BoroHubmedia_Backend directory, create a `.env` file to store your environment variables:
+In the BoroHubMedia_Backend  directory, create a `.env` file to store your environment variables:
 
 ```bash
 touch .env
@@ -236,7 +236,7 @@ The API's routes are organized under specific paths based on their functionaliti
 To access any of the above functionalities, append the relevant endpoint to the base URL. For example, to create a new content post, you would use:
 
 ```plaintext
-POST http://localhost:3000/api/content/create-content-images/
+POST http://localhost:3000/api/content/create-content-images/:memberID
 ```
 ## API Endpoints
 
