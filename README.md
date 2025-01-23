@@ -161,8 +161,9 @@ The default base URL for the server is:
 
 ````plaintext
 http://localhost:3000
-If you are running the API on a different port, remember to replace localhost:3000 with the appropriate base URL.
 ````
+If you are running the API on a different port, remember to replace localhost:3000 with the appropriate base URL.
+
 ## API Documentation
 
 ## Documentation
