@@ -569,7 +569,7 @@ The following is the directory structure of the project, highlighting key compon
 │       └── setupSwagger.js                # Swagger initialization logic
 |
 └── README.md
-```                                        # Project documentation file
+                                        # Project documentation file
 
 ## Definitions
 
