@@ -164,7 +164,7 @@ http://localhost:3000
 ````
 If you are running the API on a different port, remember to replace localhost:3000 with the appropriate base URL.
 
-## BoroHubMedia API Documentation
+## API Documentation
 
 
 For detailed information on request parameters, response formats, and example payloads, check out the following resource:
@@ -175,7 +175,7 @@ This resource will help you manage authentication, members, content posts, feedb
 
 ### Using a REST API Client
 
-Use a REST API client (like Postman or Insomnia) to interact with the endpoints. I chosd this tools because they are particularly useful for API testing during development for the following reasons:
+Using a REST API client (like Postman or Insomnia) to interact with the endpoints. I chosed this tools because they are particularly useful for API testing during development for the following reasons:
 
 - **Automatic Authorization**: Unlike tools like Swagger, which require manual entry of authorization headers or tokens, Postman and Insomnia automatically handle cookies populated by the API. This simplifies the testing process for APIs like mine that are designed to populate cookies automatically.
 
