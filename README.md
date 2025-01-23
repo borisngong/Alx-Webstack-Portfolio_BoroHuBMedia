@@ -257,9 +257,10 @@ This API provides endpoints for member authentication, including account initial
        "emailAddress": "youremail@example.com",
        "plainPassword": "yourPassword123",
        "aboutMe": "A brief description about yourself",
-       "role": "admin"  or member
+       "role": "admin"
      }
      ```
+   - **Role**: Member roles  can either be admin or member, so fill in appropriately in the role field
    - **Note**: Joi is used for input validation, and the password is hashed using bcrypt.
 
 2. **Access Account**:
