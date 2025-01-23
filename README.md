@@ -571,6 +571,9 @@ The following is the directory structure of the project, highlighting key compon
 └── README.md
                                        # Project documentation file
 
+```
+This is a high-level overview of the project structure.
+
 ## Definitions
 
 - **Content**: A post created by a member, which may include text and optional media files.
