@@ -47,7 +47,7 @@ Error responses will include a JSON object with a message detailing the error. F
   "error": "Too many requests. Please try again later.",
   "status": 429
 }
-```
+````
 Additionally, the API utilizes a custom error handling function called BDERROR to standardize error responses. It also provides utility functions, sendSuccessResponse and sendErrorResponse, to ensure that all responses are formatted uniformly. This enhances the overall user experience by providing clear and consistent feedback to the client.
 
 
