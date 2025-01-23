@@ -164,13 +164,12 @@ http://localhost:3000
 ````
 If you are running the API on a different port, remember to replace localhost:3000 with the appropriate base URL.
 
-## API Documentation
+## BoroHubMedia API Documentation
 
-## Documentation
 
 For detailed information on request parameters, response formats, and example payloads, check out the following resource:
 
-- **Postman Collection**: A collection of API endpoints you can import into Postman for testing. [Link to Postman Collection](#) (replace with actual link).
+- **Postman Collection**: Access the collection of API endpoints for testing in Postman:. [Link to Postman Collection](#)
 
 This resource will help you manage authentication, members, content posts, feedback comments, and chat functionalities.
 
