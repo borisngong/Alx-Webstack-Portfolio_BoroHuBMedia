@@ -74,7 +74,7 @@ Follow the links above to download and install Node.js and MongoDB.
 
 2. ### Install Dependencies
 
-Install the required dependencies by running the following command once in the BoroHubmedia_Backend directory:
+Install the required dependencies by running the following command:
 
 ```bash
 npm install
@@ -99,7 +99,7 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
 ### Create a `.env` File
 
-In the root directory of the project, create a `.env` file to store your environment variables:
+In BoroHubmedia_Backend directory, create a `.env` file to store your environment variables:
 
 ```bash
 touch .env
