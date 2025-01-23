@@ -516,7 +516,7 @@ The Postman collection link can be found below in the documentation section.
 
 ## Project Structure
 The following is the directory structure of the project, highlighting key components:
-
+```plaintext
 ├── AUTHOR                          # Author information
 ├── BoroHubMedia_Backend            # Main backend directory
 │   ├── .env                        # Environment variables file
@@ -567,7 +567,8 @@ The following is the directory structure of the project, highlighting key compon
 │   │   └── setupMiddleware.js       # Middleware setup logic
 │   └── swagger                      # Swagger setup files directory
 │       └── setupSwagger.js          # Swagger initialization logic
-└── README.md                       # Project documentation file
+└── README.md
+```                       # Project documentation file
 
 ## Definitions
 
