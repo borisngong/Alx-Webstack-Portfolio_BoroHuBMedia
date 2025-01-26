@@ -1,5 +1,5 @@
 /**
- * responsible for loading environment variables from a .env file
+ * responsible for loading environment variables from a .env files
  *
  * @returns {void}
  */
