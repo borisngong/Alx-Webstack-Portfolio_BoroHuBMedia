@@ -687,7 +687,7 @@ Hi, I'm Ngong Boris Kukwah, an ALX Africa Fullstack Software Engineering student
 - **LinkedIn**: [Ngong Boris Kukwah](https://www.linkedin.com/in/ngong-boris-kukwah-34063821a/)
 - **Twitter**: [@boro_didier1](https://x.com/boro_didier1)
 - **GitHub**: [borisngong](https://github.com/borisngong)
-- **API DOCUMENTATION**: [BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
+- **APIDOCUMENTATION**: [BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
 
 ```
 
