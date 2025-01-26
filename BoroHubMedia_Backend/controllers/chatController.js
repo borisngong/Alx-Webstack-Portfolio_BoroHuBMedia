@@ -1,11 +1,11 @@
-const Chat = require('../coreModels/chat');
-const ChatEntry = require('../coreModels/chatEntry');
-const Member = require('../coreModels/memberSchema');
-const { BDERROR } = require('../middlewares/handleErrors');
+const Chat = require("../coreModels/chat");
+const ChatEntry = require("../coreModels/chatEntry");
+const Member = require("../coreModels/memberSchema");
+const { BDERROR } = require("../middlewares/handleErrors");
 const {
   sendSuccessResponse,
   sendErrorResponse,
-} = require('../coreUtils/_bd_responseHandlers');
+} = require("../coreUtils/_bd_responseHandlers");
 
 class ChatController {
   /**
@@ -20,11 +20,11 @@ class ChatController {
     try {
       // Ensure the user is authenticated
       if (!req.member || !req.member._id) {
-        throw new BDERROR('Authentication required. Please log in', 401);
+        throw new BDERROR("Authentication required. Please log in", 401);
       }
 
       if (!participantsId || participantsId.length < 1) {
-        throw new BDERROR('Chat must have at least one participant', 400);
+        throw new BDERROR("Chat must have at least one participant", 400);
       }
 
       const creatorId = req.member._id;
@@ -48,7 +48,7 @@ class ChatController {
         if (!member) {
           throw new BDERROR(
             `Participant with ID ${participantId} not found`,
-            404,
+            404
           );
         }
         member.chats.push(chatId);
@@ -59,7 +59,7 @@ class ChatController {
       await Promise.all(updatePromises);
 
       return sendSuccessResponse(res, {
-        message: 'Chat created successfully!',
+        message: "Chat created successfully!",
         chat: savedChat,
       });
     } catch (error) {
@@ -82,12 +82,12 @@ class ChatController {
       // Check if the chat exists
       const chatExists = await Chat.findById(chatId);
       if (!chatExists) {
-        throw new BDERROR('Chat does not exist', 404);
+        throw new BDERROR("Chat does not exist", 404);
       }
 
       // Check if the sender is a member of the chat
       if (!chatExists.participants.includes(senderId.toString())) {
-        throw new BDERROR('You are not a member of this chat', 403);
+        throw new BDERROR("You are not a member of this chat", 403);
       }
 
       // Create a new chat entry
@@ -105,11 +105,11 @@ class ChatController {
       await chatExists.save();
 
       return sendSuccessResponse(res, {
-        message: 'Chat entry (message) created successfully!',
+        message: "Chat entry (message) created successfully!",
         chatEntry: newChatEntry,
       });
     } catch (error) {
-      console.error('Error creating chat entry:', error);
+      console.error("Error creating chat entry:", error);
       return sendErrorResponse(res, error);
     }
   }
@@ -125,18 +125,18 @@ class ChatController {
 
     try {
       const chatExists = await Chat.findById(chatId)
-        .populate('participants', 'handle')
+        .populate("participants", "handle")
         .populate({
-          path: 'messages',
-          populate: { path: 'sender', select: 'handle' },
+          path: "messages",
+          populate: { path: "sender", select: "handle" },
         });
 
       if (!chatExists) {
-        throw new BDERROR('Chat cannot be found', 404);
+        throw new BDERROR("Chat cannot be found", 404);
       }
 
       return sendSuccessResponse(res, {
-        message: 'Chat retrieved successfully!',
+        message: "Chat retrieved successfully!",
         chat: chatExists,
       });
     } catch (error) {
@@ -157,7 +157,7 @@ class ChatController {
       // Validate the chat ID
       if (!chatId) {
         return sendErrorResponse(res, {
-          message: 'Chat ID is required.',
+          message: "Chat ID is required.",
           statusCode: 400,
         });
       }
@@ -166,7 +166,7 @@ class ChatController {
       const chatToDelete = await Chat.findById(chatId);
       if (!chatToDelete) {
         return sendErrorResponse(res, {
-          message: 'Chat not found or already deleted.',
+          message: "Chat not found or already deleted.",
           statusCode: 404,
         });
       }
@@ -174,7 +174,7 @@ class ChatController {
       // Ensure member is authenticated
       if (!req.member || !req.member._id) {
         return sendErrorResponse(res, {
-          message: 'Authentication required. Please log in.',
+          message: "Authentication required. Please log in.",
           statusCode: 401,
         });
       }
@@ -183,12 +183,12 @@ class ChatController {
 
       // Authorization: member must be a participant
       const isParticipant = chatToDelete.participants.includes(
-        memberId.toString(),
+        memberId.toString()
       );
 
       if (!isParticipant) {
         return sendErrorResponse(res, {
-          message: 'You are not authorized to delete this chat.',
+          message: "You are not authorized to delete this chat.",
           statusCode: 403,
         });
       }
@@ -197,12 +197,12 @@ class ChatController {
       await chatToDelete.deleteOne();
 
       return sendSuccessResponse(res, {
-        message: 'Chat deleted successfully.',
+        message: "Chat deleted successfully.",
+        statusCode: 204,
       });
     } catch (error) {
-      console.error('Error deleting chat:', error);
       return sendErrorResponse(res, {
-        message: 'Failed to delete chat due to an unexpected error.',
+        message: "Failed to delete chat due to an unexpected error.",
         statusCode: 500,
       });
     }
