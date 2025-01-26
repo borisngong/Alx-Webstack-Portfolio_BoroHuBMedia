@@ -30,7 +30,7 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // For unhandled errors, call the next middleware
+  // For unhandled errors, call the next middlewares
   return res.status(500).json({
     error: "Internal server error",
     status: 500,
