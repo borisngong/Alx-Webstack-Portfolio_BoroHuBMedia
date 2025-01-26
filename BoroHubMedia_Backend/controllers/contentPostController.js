@@ -1,13 +1,13 @@
-const { BDERROR } = require('../middlewares/handleErrors');
-const Content = require('../coreModels/contentPost');
-const Comment = require('../coreModels/feedbackComment');
-const Member = require('../coreModels/memberSchema');
+const { BDERROR } = require("../middlewares/handleErrors");
+const Content = require("../coreModels/contentPost");
+const Comment = require("../coreModels/feedbackComment");
+const Member = require("../coreModels/memberSchema");
 const {
   sendSuccessResponse,
   sendErrorResponse,
-} = require('../coreUtils/_bd_responseHandlers');
-const { sanitizeMemberData } = require('../coreUtils/sanitized');
-const { createFileUrl } = require('../coreUtils/create-fileUrl');
+} = require("../coreUtils/_bd_responseHandlers");
+const { sanitizeMemberData } = require("../coreUtils/sanitized");
+const { createFileUrl } = require("../coreUtils/create-fileUrl");
 
 class ContentPostController {
   /**
@@ -21,12 +21,13 @@ class ContentPostController {
     const files = req.files || []; // Uploaded files (media)
 
     try {
-      if (!content) throw new BDERROR('Content is required', 400);
-      if (!files.length) throw new BDERROR('Please upload at least one media file', 400);
+      if (!content) throw new BDERROR("Content is required", 400);
+      if (!files.length)
+        throw new BDERROR("Please upload at least one media file", 400);
 
       // Fetch the member who is creating the post
       const member = await Member.findById(memberId);
-      if (!member) throw new BDERROR('Member not found', 404);
+      if (!member) throw new BDERROR("Member not found", 404);
 
       // Generate media URLs from uploaded files
       const mediaUrls = files.map((file) => createFileUrl(file.filename));
@@ -47,11 +48,11 @@ class ContentPostController {
       return sendSuccessResponse(
         res,
         {
-          message: 'Post created successfully!',
+          message: "Post created successfully!",
           post: savedPost,
           member: sanitizeMemberData(member),
         },
-        201,
+        201
       );
     } catch (error) {
       return sendErrorResponse(res, error.message, error.statusCode || 500);
@@ -72,11 +73,11 @@ class ContentPostController {
     try {
       // Fetch the post to update
       const post = await Content.findById(postId);
-      if (!post) throw new BDERROR('Post not found', 404);
+      if (!post) throw new BDERROR("Post not found", 404);
       if (post.author.toString() !== memberId) {
         throw new BDERROR(
-          'Unauthorized: You can only update your own posts',
-          403,
+          "Unauthorized: You can only update your own posts",
+          403
         );
       }
 
@@ -85,11 +86,12 @@ class ContentPostController {
 
       // Validate and update media files if provided
       if (files.length > 0) {
-        if (files.length < 4) throw new BDERROR('Please upload at least four images', 400);
+        if (files.length < 4)
+          throw new BDERROR("Please upload at least four images", 400);
         if (files.length > 8) {
           throw new BDERROR(
-            'File upload limit exceeded. Only 10 files are allowed.',
-            400,
+            "File upload limit exceeded. Only 10 files are allowed.",
+            400
           );
         }
 
@@ -101,8 +103,8 @@ class ContentPostController {
       const updatedPost = await post.save();
       return sendSuccessResponse(
         res,
-        { message: 'Content updated successfully!', post: updatedPost },
-        200,
+        { message: "Content updated successfully!", post: updatedPost },
+        200
       );
     } catch (error) {
       return sendErrorResponse(res, error.message, error.statusCode || 500);
@@ -121,8 +123,9 @@ class ContentPostController {
     try {
       // Fetch the post to like
       const post = await Content.findById(postId);
-      if (!post) throw new BDERROR('Post not found', 404);
-      if (post.likes.includes(memberId)) throw new BDERROR('You have already liked this post', 400);
+      if (!post) throw new BDERROR("Post not found", 404);
+      if (post.likes.includes(memberId))
+        throw new BDERROR("You have already liked this post", 400);
 
       post.likes.push(memberId);
       post.likeCount += 1; // Increment like count
@@ -130,8 +133,8 @@ class ContentPostController {
       await post.save();
       return sendSuccessResponse(
         res,
-        { message: 'Post liked successfully!', post },
-        200,
+        { message: "Post liked successfully!", post },
+        200
       );
     } catch (error) {
       return sendErrorResponse(res, error.message, error.statusCode || 500);
@@ -150,8 +153,9 @@ class ContentPostController {
     try {
       // Fetch the post to unlike
       const post = await Content.findById(postId);
-      if (!post) throw new BDERROR('Post not found', 404);
-      if (!post.likes.includes(memberId)) throw new BDERROR('You have not liked this post yet', 400);
+      if (!post) throw new BDERROR("Post not found", 404);
+      if (!post.likes.includes(memberId))
+        throw new BDERROR("You have not liked this post yet", 400);
       // Remove member ID from likes
       post.likes = post.likes.filter((id) => id.toString() !== memberId);
       post.likeCount -= 1; // Decrement like count
@@ -159,8 +163,8 @@ class ContentPostController {
       await post.save();
       return sendSuccessResponse(
         res,
-        { message: 'Post unliked successfully!', post },
-        200,
+        { message: "Post unliked successfully!", post },
+        200
       );
     } catch (error) {
       return sendErrorResponse(res, error.message, error.statusCode || 500);
@@ -179,14 +183,14 @@ class ContentPostController {
     try {
       // Fetch the post to delete
       const post = await Content.findById(postId);
-      if (!post) throw new BDERROR('Post not found', 404);
+      if (!post) throw new BDERROR("Post not found", 404);
 
       const member = await Member.findById(memberId);
-      if (!member) throw new BDERROR('Member not found', 404);
+      if (!member) throw new BDERROR("Member not found", 404);
 
       // Check ownership or admin role
-      if (post.author.toString() !== memberId && member.role !== 'admin') {
-        throw new BDERROR('Unauthorized: You cannot delete this post', 403);
+      if (post.author.toString() !== memberId && member.role !== "admin") {
+        throw new BDERROR("Unauthorized: You cannot delete this post", 403);
       }
 
       // Delete associated comments
@@ -195,7 +199,7 @@ class ContentPostController {
       // Update members who liked the post
       await Member.updateMany(
         { _id: { $in: post.likes } },
-        { $pull: { likes: postId } },
+        { $pull: { likes: postId } }
       );
 
       // Remove post reference from the author's post list
@@ -205,8 +209,8 @@ class ContentPostController {
 
       return sendSuccessResponse(
         res,
-        { message: 'Post deleted successfully!' },
-        200,
+        { message: "Post deleted successfully!" },
+        204
       );
     } catch (error) {
       return sendErrorResponse(res, error.message, error.statusCode || 500);
@@ -223,11 +227,11 @@ class ContentPostController {
 
     try {
       // Fetch the post by ID
-      const post = await Content.findById(postId).populate('author', 'handle');
-      if (!post) throw new BDERROR('Post not found', 404);
+      const post = await Content.findById(postId).populate("author", "handle");
+      if (!post) throw new BDERROR("Post not found", 404);
 
       return sendSuccessResponse(res, {
-        message: 'Post retrieved successfully!',
+        message: "Post retrieved successfully!",
         post,
       });
     } catch (error) {
@@ -246,13 +250,14 @@ class ContentPostController {
     try {
       // Fetch all posts by the member ID
       const posts = await Content.find({ author: memberId }).populate(
-        'author',
-        'handle',
+        "author",
+        "handle"
       );
-      if (!posts.length) throw new BDERROR('No posts found for this member', 404);
+      if (!posts.length)
+        throw new BDERROR("No posts found for this member", 404);
 
       return sendSuccessResponse(res, {
-        message: 'Posts retrieved successfully!',
+        message: "Posts retrieved successfully!",
         posts,
       });
     } catch (error) {
