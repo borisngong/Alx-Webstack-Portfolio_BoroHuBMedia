@@ -22,9 +22,7 @@ class BDERROR extends Error {
  * @param {Object} res - The response object
  * @param {Function} next - The next middleware function
  */
-const errorHandler = (err, req, res) => {
-  console.error(err);
-
+const errorHandler = (err, req, res, next) => {
   if (err instanceof BDERROR) {
     return res.status(err.status).json({
       error: err.message,
@@ -32,9 +30,9 @@ const errorHandler = (err, req, res) => {
     });
   }
 
-  // If the error is not an instance of BDERROR, return a generic error message
+  // For unhandled errors, call the next middleware
   return res.status(500).json({
-    error: 'Internal server error',
+    error: "Internal server error",
     status: 500,
   });
 };
