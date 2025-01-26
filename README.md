@@ -42,14 +42,14 @@ The API employs comprehensive error handling to ensure a smooth member experienc
 
 Error responses will include a JSON object with a message detailing the error. For example:
 
-````json
+```json
 {
   "error": "Too many requests. Please try again later.",
   "status": 429
 }
-````
-Additionally, the API utilizes a custom error handling function called BDERROR to standardize error responses. It also provides utility functions, sendSuccessResponse and sendErrorResponse, to ensure that all responses are formatted uniformly. This enhances the overall user experience by providing clear and consistent feedback to the client.
+```
 
+Additionally, the API utilizes a custom error handling function called BDERROR to standardize error responses. It also provides utility functions, sendSuccessResponse and sendErrorResponse, to ensure that all responses are formatted uniformly. This enhances the overall user experience by providing clear and consistent feedback to the client.
 
 ## Prerequisites
 
@@ -64,21 +64,24 @@ Follow the links above to download and install Node.js and MongoDB.
 In order to run the api you will have to follow these **Steps**:
 
 ### Step 1. Clone Repository
-   Clone the repository using the following command in your terminal:
 
-   ```bash
-   git clone https://github.com/borisngong/Alx-Webstack-Portfolio_BoroHuBMedia.git
-   cd Alx-Webstack-Portfolio_BoroHuBMedia
-   cd BoroHubMedia_Backend 
+Clone the repository using the following command in your terminal:
+
+```bash
+git clone https://github.com/borisngong/Alx-Webstack-Portfolio_BoroHuBMedia.git
+cd Alx-Webstack-Portfolio_BoroHuBMedia
+cd BoroHubMedia_Backend
 ```
 
-### Step 2.  Install Dependencies
+### Step 2. Install Dependencies
 
 Install the required dependencies by running the following command:
 
 ```bash
 npm install
-````
+```
+
+Make sure that node is installed
 
 ### Step 3. Set Up MongoDB Connection
 
@@ -99,7 +102,7 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
 ### Step 4. Create a `.env` File
 
-In the BoroHubMedia_Backend  directory, create a `.env` file to store your environment variables:
+In the BoroHubMedia_Backend directory, create a `.env` file to store your environment variables:
 
 ```bash
 touch .env
@@ -159,17 +162,17 @@ Once the API is running, you can use a REST API client (like Postman or Insomnia
 
 The default base URL for the server is:
 
-````plaintext
+```plaintext
 http://localhost:3000
-````
+```
+
 If you are running the API on a different port, remember to replace localhost:3000 with the appropriate base URL.
 
 ## API Documentation
 
-
 For detailed information on request parameters, response formats, and example payloads, check out the following resource:
 
-- **Postman Collection**: Access the collection of API endpoints for testing in Postman:. [Link to Postman Collection](#)
+- **Postman Collection**: Access the collection of API endpoints for testing in Postman:. [Link to BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
 
 This resource will help you manage authentication, members, content posts, feedback comments, and chat functionalities.
 
@@ -183,15 +186,14 @@ Using a REST API client (like Postman or Insomnia) to interact with the endpoint
 
 Since my API automatically populates cookies, using Postman or Insomnia ensures that you can efficiently test protected endpoints without the need for repetitive manual configurations(e.g setting the headers, tokens etc).
 
-
 ## API Endpoint Structure
 
 The API's routes are organized under specific paths based on their functionalities.
 
-
 ---
 
 ### Authentication Routes
+
 - **Base Route**: `/api/auth`
 - **Example**:
   - **POST** `/api/auth/initializeAccount`
@@ -200,6 +202,7 @@ The API's routes are organized under specific paths based on their functionaliti
 ---
 
 ### Content Post Routes
+
 - **Base Route**: `/api/content`
 - **Example**:
   - **DELETE** `/api/content/delete-content/:postId`
@@ -208,6 +211,7 @@ The API's routes are organized under specific paths based on their functionaliti
 ---
 
 ### Member Management Routes
+
 - **Base Route**: `/api/member`
 - **Example**:
   - **PUT** `/api/member/follow/:memberId`
@@ -216,6 +220,7 @@ The API's routes are organized under specific paths based on their functionaliti
 ---
 
 ### Comment Management Routes
+
 - **Base Route**: `/api/comment`
 - **Example**:
   - **PUT** `/api/comment/update-comment/:commentId`
@@ -224,6 +229,7 @@ The API's routes are organized under specific paths based on their functionaliti
 ---
 
 ### Chat Management Routes
+
 - **Base Route**: `/api/chat`
 - **Example**:
   - **GET** `/api/chat/get-chat/:chatID`
@@ -238,6 +244,7 @@ To access any of the above functionalities, append the relevant endpoint to the 
 ```plaintext
 POST http://localhost:3000/api/content/create-content-images/:memberID
 ```
+
 ## API Endpoints
 
 # Authentication Management API
@@ -247,6 +254,7 @@ This API provides endpoints for member authentication, including account initial
 ### Endpoints Overview
 
 1. **Initialize Account**:
+
    - **POST** `/api/auth/initializeAccount`
    - **How to Run**: To create a new member account, send a POST request to this endpoint with the following JSON body in the request:
    - **Example Request**:
@@ -260,10 +268,11 @@ This API provides endpoints for member authentication, including account initial
        "role": "admin"
      }
      ```
-   - **Role**: Member roles  can either be admin or member, so fill in appropriately in the role field
+   - **Role**: Member roles can either be admin or member, so fill in appropriately in the role field
    - **Note**: Joi is used for input validation, and the password is hashed using bcrypt.
 
 2. **Access Account**:
+
    - **POST** `/api/auth/accessAccount`
    - **How to Run**: To log in, send a POST request to this endpoint with the member's email and password in the request body. Rate limiting is applied to prevent abuse.
    - **Example Request**:
@@ -275,6 +284,7 @@ This API provides endpoints for member authentication, including account initial
      ```
 
 3. **End Session**:
+
    - **GET** `/api/auth/endSession`
    - **How to Run**: To log out, send a GET request to this endpoint. Authenticated members can log out of their account to end the current session and invalidate or clear the access token and refresh tokens.
 
@@ -289,18 +299,22 @@ This API provides endpoints for managing member accounts, including functionalit
 ### Endpoints Overview
 
 1. **Refresh Token**:
+
    - **POST** `/api/member/refresh-token`
    - **How to Run**: Authenticated members can refresh their access tokens by sending a POST request to this endpoint. This helps to extend the member session without the need to log in again.
 
 2. **Delete a Member**:
+
    - **DELETE** `/api/member/delete/:memberId`
    - **How to Run**: Admin members can delete a member's account by sending a DELETE request to this endpoint with the member's unique identifier (`memberId`). This will remove all associated data and content.
 
 3. **Retrieve Member Details**:
+
    - **GET** `/api/member/:memberId`
    - **How to Run**: Authenticated members can retrieve details of a specific member by sending a GET request to this endpoint with the member's unique identifier.
 
 4. **Update Member Details**:
+
    - **PUT** `/api/member/update/:memberId`
    - **How to Run**: Authenticated members can update their details by sending a PUT request to this endpoint with the updated information in the request body.
    - **Example Request**:
@@ -312,34 +326,42 @@ This API provides endpoints for managing member accounts, including functionalit
      ```
 
 5. **Follow a Member**:
+
    - **PUT** `/api/member/follow/:memberId`
    - **How to Run**: Authenticated members can follow another member by sending a PUT request to this endpoint with the member's unique identifier (`memberId`). This adds the member ID to the followers array of the member being followed.
 
 6. **Unfollow a Member**:
+
    - **DELETE** `/api/member/unfollow/:memberId`
    - **How to Run**: Authenticated members can unfollow a member by sending a DELETE request to this endpoint with the member's unique identifier (`memberId`). This removes the member ID from the followers array of the member being unfollowed.
 
 7. **Get Followers List**:
+
    - **GET** `/api/member/followers/:memberId`
    - **How to Run**: Authenticated members can retrieve a list of followers for a specific member by sending a GET request to this endpoint with the member's unique identifier.
 
 8. **Restrict a Member**:
+
    - **POST** `/api/member/restricted/`
    - **How to Run**: Authenticated members can restrict/block another member's account by sending a POST request to this endpoint with the member's unique identifier in the request body. This blocks them from interacting with the member's content.
 
 9. **Unrestrict a Member**:
+
    - **DELETE** `/api/member/unrestricted/`
    - **How to Run**: Authenticated members can unrestrict/unblock another member's account by sending a DELETE request to this endpoint with the member's unique identifier in the request body. This allows them to interact with the member's content again.
 
 10. **Get Restricted List**:
+
     - **GET** `/api/member/restricted-list/:memberId`
     - **How to Run**: Members can retrieve a list of restricted members by sending a GET request to this endpoint with their unique identifier.
 
 11. **Search for a Member by Handle**:
+
     - **GET** `/api/member/search/:handle`
     - **How to Run**: Members can search for other members by their handles or usernames by sending a GET request to this endpoint with the handle as a parameter.
 
 12. **Upload Profile Picture**:
+
     - **POST** `/api/member/avatarUpload/`
     - **How to Run**: Authenticated members can upload their profile pictures by sending a POST request to this endpoint. Use Postman or Insomnia to set the request type to `POST` and select `form-data` in the body.
     - **Fields**:
@@ -364,6 +386,7 @@ This API provides endpoints for managing content posts, including creating, upda
 ### Endpoints Overview
 
 1. **Create Content Images**:
+
    - **POST** `/api/content/create-content-images/:memberId`
    - **How to Run**: Authenticated members can create a new content post with or without images by sending a POST request to this endpoint. Use Postman or Insomnia to set the request type to `POST` and select `form-data` in the body.
    - **Fields**:
@@ -374,6 +397,7 @@ This API provides endpoints for managing content posts, including creating, upda
      - In Postman, first upload your files to Postman cloud storage. To do this, click on the "File" option in the `media` field, then select "Upload Files" from your local storage. After uploading, you can select the files from Postman cloud storage. Set the key as `content` and the value as your post text. You can easily add multiple files by clicking the "Add" button next to the `media` key.
 
 2. **Update Content**:
+
    - **PUT** `/api/content/update-content/:postId`
    - **How to Run**: Members can update their existing content post by sending a PUT request to this endpoint. Use Postman to set the request type to `PUT` and select `form-data` in the body.
    - **Fields**:
@@ -384,18 +408,22 @@ This API provides endpoints for managing content posts, including creating, upda
      - For `media`, add multiple keys with the same name (`media`) and select files to upload.
 
 3. **Get Member Content**:
+
    - **GET** `/api/content/get-member-content/:memberId`
    - **How to Run**: To retrieve all content posts created by a specific member, send a GET request to this endpoint with the member's unique identifier (`memberId`).
 
 4. **Get Specific Content Post**:
+
    - **GET** `/api/content/get-content/:postId`
    - **How to Run**: To fetch details of a specific content post, send a GET request to this endpoint with the post's ID. This will return details of the author and handle of who created the post.
 
 5. **Like Content Post**:
+
    - **PUT** `/api/content/like-content/:postId`
    - **How to Run**: Authenticated members can like a specific content post by sending a PUT request to this endpoint with the post's ID. This adds their member ID to the post's likes array.
 
 6. **Unlike Content Post**:
+
    - **PUT** `/api/content/unlike-content/:postId`
    - **How to Run**: Members can remove their like from a specific content post by sending a PUT request to this endpoint with the post's ID. This removes their member ID from the likes array.
 
@@ -410,6 +438,7 @@ This API provides endpoints for managing feedback comments, including creating, 
 ### Endpoints Overview
 
 1. **Create Comment**:
+
    - **POST** `/api/comment/create-comment/`
    - **How to Run**: Authenticated members can create a new comment on a specific content post by sending a POST request to this endpoint.
    - **Fields**:
@@ -422,6 +451,7 @@ This API provides endpoints for managing feedback comments, including creating, 
      ```
 
 2. **Update Comment**:
+
    - **PUT** `/api/comment/update-comment/:commentId`
    - **How to Run**: Authenticated members can update an existing comment by sending a PUT request to this endpoint with the comment's ID. Members can only update comments they have created.
    - **Fields**:
@@ -434,6 +464,7 @@ This API provides endpoints for managing feedback comments, including creating, 
      ```
 
 3. **Create Comment Reply**:
+
    - **POST** `/api/comment/comment-reply`
    - **How to Run**: Authenticated members can reply to a specific comment on a content post by sending a POST request to this endpoint.
    - **Fields**:
@@ -448,25 +479,28 @@ This API provides endpoints for managing feedback comments, including creating, 
      ```
 
 4. **Like Comment Reply**:
+
    - **PUT** `/api/comment/like-comment-reply/:replyId`
    - **How to Run**: Authenticated members can like a specific comment reply by sending a PUT request to this endpoint with the reply's ID.
 
 5. **Dislike Comment Reply**:
+
    - **PUT** `/api/comment/dislike-comment-reply/:replyId`
    - **How to Run**: Authenticated members can dislike a specific comment reply by sending a PUT request to this endpoint with the reply's ID.
 
 6. **Like Comment**:
+
    - **PUT** `/api/comment/like-comment/:commentId`
    - **How to Run**: Authenticated members can like a specific comment by sending a PUT request to this endpoint with the comment's ID.
 
 7. **Unlike Comment**:
+
    - **PUT** `/api/comment/unlike-comment/:commentId`
    - **How to Run**: Authenticated members can remove their like from a specific comment by sending a PUT request to this endpoint with the comment's ID.
 
 8. **Delete Comment**:
    - **DELETE** `/api/comment/delete-comment/:commentId`
    - **How to Run**: Authenticated members can delete a specific comment by sending a DELETE request to this endpoint with the comment's ID. Only the author of the comment or an admin can delete it if it doesn't adhere to rules.
-
 
 # Chat Management API
 
@@ -475,6 +509,7 @@ This API provides endpoints for managing chat functionalities, including creatin
 ### Endpoints Overview
 
 1. **Create a Chat**:
+
    - **POST** `/api/chat/create-chat`
    - **How to Run**: Authenticated members can create a new chat with at least one participant. The chat creator is automatically added as a participant.
    - **Fields**:
@@ -487,6 +522,7 @@ This API provides endpoints for managing chat functionalities, including creatin
      ```
 
 2. **Create a Chat Entry**:
+
    - **POST** `/api/chat/create-chat-entry/:chatId`
    - **How to Run**: Users can add a new message to an existing chat by sending a POST request to this endpoint with the chat's ID. Members must be participants in the chat to add a message.
    - **Fields**:
@@ -499,6 +535,7 @@ This API provides endpoints for managing chat functionalities, including creatin
      ```
 
 3. **Get a Chat**:
+
    - **GET** `/api/chat/get-chat/:chatId`
    - **How to Run**: To retrieve the details and messages of a specific chat, send a GET request to this endpoint with the chat's ID.
 
@@ -513,9 +550,10 @@ For detailed information on request parameters, response formats, and example pa
 Please explore the Postman collection for more insights into managing authentication, members, content posts, feedback comments and chat functionalities.
 The Postman collection link can be found below in the documentation section.
 
-
 ## Project Structure
+
 The following is the directory structure of the project, highlighting key components:
+
 ```plaintext
 ├── AUTHOR                                 # Author information
 ├── BoroHubMedia_Backend                   # Main backend directory
@@ -562,7 +600,7 @@ The following is the directory structure of the project, highlighting key compon
 │   ├── middlewares                        # Middleware functions directory
 │   │   ├── authIsAdmin.js                 # Admin authentication middleware
 │   │   ├── handleErrors.js                # Error handling middleware
-│   │   ├── mediaUploads.js                # Media upload middleware 
+│   │   ├── mediaUploads.js                # Media upload middleware
 │   │   ├── rateLimiter.js                 # Rate limiting middleware preventing server overload
 │   │   └── setupMiddleware.js             # Middleware setup logic
 │   └── swagger                            # Swagger setup files directory
@@ -572,6 +610,7 @@ The following is the directory structure of the project, highlighting key compon
                                        # Project documentation file
 
 ```
+
 This is a high-level overview of the project structure.
 
 ## Definitions
@@ -588,10 +627,10 @@ This is a high-level overview of the project structure.
 - **Database**: A structured collection of data that is stored and managed for retrieval and manipulation.
 - **Schema**: A blueprint or structure that defines how data is organized in a database, including tables and relationships.
 
-
 ### Common Issues
 
 1. **Port Already in Use**:
+
    - Ensure no other process is running on the specified port.
    - Kill any processes using the port with:
      ```bash
@@ -599,15 +638,19 @@ This is a high-level overview of the project structure.
      ```
 
 2. **MongoDB Connection Issues**:
+
    - Verify MongoDB URI and credentials in the `.env` file.
+     -It is also good to add the willd card IP 0.0.0.0 to the access IP so that you can acces from all environments
 
 3. **Missing Dependencies**:
+
    - If you encounter a "Module Not Found" error for `dotenv`, ensure that you have installed it by running:
      ```bash
      npm install dotenv
      ```
 
 4. **Node.js Version**:
+
    - Ensure you are using Node.js version 16.x or later. You can check your Node.js version with:
      ```bash
      node -v
@@ -617,21 +660,25 @@ This is a high-level overview of the project structure.
    - Double-check your `.env` file for missing or incorrect variables.
 
 ### Features to Add
+
 - Implement WebSocket-based real-time notifications.
 - Develop advanced member and post search features.
 - Introduce caching (e.g., Redis) to improve performance.
-- Intend to add  more detailed comprehensive documentation using Swagger, populating it whose local host link is already running in the api when started
-.
+- Intend to add more detailed comprehensive documentation using Swagger, populating it whose local host link is already running in the api when started
+  .
+
 ### Optimization Plans
+
 - Optimize queries to increase response speeds.
 - Incorporate analytics dashboards for user insights.
 
 ### User Experience
+
 - Create a user-friendly frontend to showcase the API's capabilities.
 
 ## About the Author
 
-Hi, I'm Ngong Boris Kukwah, an ALX Africa Fullstack Software Engineering student  specializing in Backend Development. I’m passionate about building efficient, scalable, and robust applications. This project reflects my dedication to learning and implementing best practices in software development.
+Hi, I'm Ngong Boris Kukwah, an ALX Africa Fullstack Software Engineering student specializing in Backend Development. I’m passionate about building efficient, scalable, and robust applications. This project reflects my dedication to learning and implementing best practices in software development.
 
 ### Connect with Me
 
@@ -640,4 +687,8 @@ Hi, I'm Ngong Boris Kukwah, an ALX Africa Fullstack Software Engineering student
 - **LinkedIn**: [Ngong Boris Kukwah](https://www.linkedin.com/in/ngong-boris-kukwah-34063821a/)
 - **Twitter**: [@boro_didier1](https://x.com/boro_didier1)
 - **GitHub**: [borisngong](https://github.com/borisngong)
-````
+- **API DOCUMENTATION**: [BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
+
+```
+
+```
