@@ -7,12 +7,12 @@ const router = express.Router();
 
 // Member Auth Routes
 
-// Initialize a new user account
+// Initialize a new member account
 router.post("/initializeAccount", (req, res) => {
   MemberAuthenticationController.initializeAccount(req, res);
 });
 
-// Access existing user account (login)
+// Access existing member account (login)
 router.post("/accessAccount", accessLimiter, (req, res) => {
   MemberAuthenticationController.accessAccount(req, res);
 });
