@@ -1,11 +1,11 @@
-const Comment = require('../coreModels/feedbackComment');
-const Content = require('../coreModels/contentPost');
-const Member = require('../coreModels/memberSchema');
-const { BDERROR } = require('../middlewares/handleErrors');
+const Comment = require("../coreModels/feedbackComment");
+const Content = require("../coreModels/contentPost");
+const Member = require("../coreModels/memberSchema");
+const { BDERROR } = require("../middlewares/handleErrors");
 const {
   sendSuccessResponse,
   sendErrorResponse,
-} = require('../coreUtils/_bd_responseHandlers');
+} = require("../coreUtils/_bd_responseHandlers");
 
 class FeedbackCommentController {
   /**
@@ -20,20 +20,20 @@ class FeedbackCommentController {
 
     try {
       // Validate the comment input
-      if (!input || input.trim() === '') {
-        throw new BDERROR('Comment input is required', 400);
+      if (!input || input.trim() === "") {
+        throw new BDERROR("Comment input is required", 400);
       }
 
       // Check if the post exists
       const post = await Content.findById(postId);
       if (!post) {
-        throw new BDERROR('Post not found', 404);
+        throw new BDERROR("Post not found", 404);
       }
 
       // Check if the member exists
       const member = await Member.findById(memberId);
       if (!member) {
-        throw new BDERROR('Member not found', 404);
+        throw new BDERROR("Member not found", 404);
       }
 
       // Create a new comment
@@ -54,17 +54,17 @@ class FeedbackCommentController {
       return sendSuccessResponse(
         res,
         {
-          message: 'Comment created successfully!',
+          message: "Comment created successfully!",
           comment: newComment,
         },
-        201,
+        201
       );
     } catch (error) {
-      console.error('Error creating comment:', error);
+      console.error("Error creating comment:", error);
       return sendErrorResponse(
         res,
-        error.message || 'An error occurred',
-        error.statusCode || 500,
+        error.message || "An error occurred",
+        error.statusCode || 500
       );
     }
   }
@@ -82,22 +82,22 @@ class FeedbackCommentController {
 
     try {
       // Validate the input
-      if (!input || input.trim() === '') {
-        throw new BDERROR('Comment input cannot be empty', 400);
+      if (!input || input.trim() === "") {
+        throw new BDERROR("Comment input cannot be empty", 400);
       }
 
       // Find the comment by ID
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        throw new BDERROR('Comment not found', 404);
+        throw new BDERROR("Comment not found", 404);
       }
 
       // Ensure the member is the author of the comment
       if (comment.member.toString() !== memberId.toString()) {
         return sendErrorResponse(
           res,
-          'You are not authorized to update this comment',
-          403,
+          "You are not authorized to update this comment",
+          403
         );
       }
 
@@ -107,7 +107,7 @@ class FeedbackCommentController {
 
       // Send success response
       return sendSuccessResponse(res, {
-        message: 'Comment updated successfully!',
+        message: "Comment updated successfully!",
         comment,
       });
     } catch (error) {
@@ -127,20 +127,20 @@ class FeedbackCommentController {
 
     try {
       // Validate the input
-      if (!input || input.trim() === '') {
-        throw new BDERROR('Reply input is required', 400);
+      if (!input || input.trim() === "") {
+        throw new BDERROR("Reply input is required", 400);
       }
 
       // Check if the comment exists
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        throw new BDERROR('Comment not found', 404);
+        throw new BDERROR("Comment not found", 404);
       }
 
       // Check if the member exists
       const member = await Member.findById(memberId);
       if (!member) {
-        throw new BDERROR('Member not found', 404);
+        throw new BDERROR("Member not found", 404);
       }
 
       // Create a new reply
@@ -157,10 +157,10 @@ class FeedbackCommentController {
       return sendSuccessResponse(
         res,
         {
-          message: 'Reply created successfully!',
+          message: "Reply created successfully!",
           reply: newReply,
         },
-        201,
+        201
       );
     } catch (error) {
       return sendErrorResponse(res, error);
@@ -179,19 +179,19 @@ class FeedbackCommentController {
 
     try {
       // Check if the reply exists
-      const comment = await Comment.findOne({ 'replies._id': replyId });
+      const comment = await Comment.findOne({ "replies._id": replyId });
       if (!comment) {
-        throw new BDERROR('Reply not found', 404);
+        throw new BDERROR("Reply not found", 404);
       }
 
       const reply = comment.replies.id(replyId);
       if (!reply) {
-        throw new BDERROR('Reply not found', 404);
+        throw new BDERROR("Reply not found", 404);
       }
 
       // Check if the member has already liked the reply
       if (reply.likes.includes(memberId)) {
-        throw new BDERROR('You have already liked this reply', 400);
+        throw new BDERROR("You have already liked this reply", 400);
       }
 
       // Add memberId to reply likes
@@ -199,7 +199,7 @@ class FeedbackCommentController {
       await comment.save();
 
       return sendSuccessResponse(res, {
-        message: 'Reply liked successfully!',
+        message: "Reply liked successfully!",
         reply,
       });
     } catch (error) {
@@ -218,33 +218,33 @@ class FeedbackCommentController {
     const memberId = req.member._id;
 
     try {
-      const comment = await Comment.findOne({ 'replies._id': replyId });
+      const comment = await Comment.findOne({ "replies._id": replyId });
       if (!comment) {
-        throw new BDERROR('Comment not found', 404);
+        throw new BDERROR("Comment not found", 404);
       }
 
       const reply = comment.replies.id(replyId);
       if (!reply) {
-        throw new BDERROR('Reply not found', 404);
+        throw new BDERROR("Reply not found", 404);
       }
 
       // Ensure likes is an array before proceeding
       if (!Array.isArray(reply.likes)) {
-        throw new BDERROR('Invalid likes array', 500);
+        throw new BDERROR("Invalid likes array", 500);
       }
 
       if (!reply.likes.includes(memberId)) {
-        throw new BDERROR('You have not liked this reply', 400);
+        throw new BDERROR("You have not liked this reply", 400);
       }
 
       // Filter out the memberId safely
       reply.likes = reply.likes.filter(
-        (id) => id && id.toString() !== memberId.toString(),
+        (id) => id && id.toString() !== memberId.toString()
       );
       await comment.save();
 
       return sendSuccessResponse(res, {
-        message: 'Reply disliked successfully!',
+        message: "Reply disliked successfully!",
         reply,
       });
     } catch (error) {
@@ -266,15 +266,15 @@ class FeedbackCommentController {
       // Find the comment
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        throw new BDERROR('Comment not found', 404);
+        throw new BDERROR("Comment not found", 404);
       }
 
       // Check if the member has already liked the comment
       if (comment.likes.includes(memberId)) {
         return sendErrorResponse(
           res,
-          'You have already liked this comment.',
-          400,
+          "You have already liked this comment.",
+          400
         );
       }
 
@@ -284,15 +284,15 @@ class FeedbackCommentController {
 
       // Send success response
       return sendSuccessResponse(res, {
-        message: 'Comment liked successfully!',
+        message: "Comment liked successfully!",
         comment,
       });
     } catch (error) {
-      console.error('Error liking comment:', error);
+      console.error("Error liking comment:", error);
       return sendErrorResponse(
         res,
-        error.message || 'An error occurred',
-        error.statusCode || 500,
+        error.message || "An error occurred",
+        error.statusCode || 500
       );
     }
   }
@@ -311,31 +311,31 @@ class FeedbackCommentController {
       // Find the comment
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        throw new BDERROR('Comment not found', 404);
+        throw new BDERROR("Comment not found", 404);
       }
 
       // Check if the member has already liked the comment
       if (!comment.likes.includes(memberId)) {
-        return sendErrorResponse(res, 'You have not liked this comment.', 400);
+        return sendErrorResponse(res, "You have not liked this comment.", 400);
       }
 
       // Remove memberId from comment likes
       comment.likes = comment.likes.filter(
-        (id) => id.toString() !== memberId.toString(),
+        (id) => id.toString() !== memberId.toString()
       );
       await comment.save();
 
       // Send success response
       return sendSuccessResponse(res, {
-        message: 'Comment disliked successfully!',
+        message: "Comment disliked successfully!",
         comment,
       });
     } catch (error) {
-      console.error('Error disliking comment:', error);
+      console.error("Error disliking comment:", error);
       return sendErrorResponse(
         res,
-        error.message || 'An error occurred',
-        error.statusCode || 500,
+        error.message || "An error occurred",
+        error.statusCode || 500
       );
     }
   }
@@ -355,25 +355,25 @@ class FeedbackCommentController {
       // Find the comment
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        throw new BDERROR('Comment not found', 404);
+        throw new BDERROR("Comment not found", 404);
       }
 
       // Check if the member is the creator or has the role of 'admin'
       if (
-        comment.member.toString() !== memberId.toString()
-        && memberRole !== 'admin'
+        comment.member.toString() !== memberId.toString() &&
+        memberRole !== "admin"
       ) {
         return sendErrorResponse(
           res,
-          'You are not authorized to delete this comment.',
-          403,
+          "You are not authorized to delete this comment.",
+          403
         );
       }
 
       // Delete the likes from the associated content
       await Content.updateMany(
         { comments: commentId },
-        { $pull: { comments: commentId } },
+        { $pull: { comments: commentId } }
       );
 
       // Delete the replies
@@ -381,23 +381,27 @@ class FeedbackCommentController {
 
       // Delete the comment replies from other comments
       await Comment.updateMany(
-        { 'replies._id': commentId },
-        { $pull: { replies: { _id: commentId } } },
+        { "replies._id": commentId },
+        { $pull: { replies: { _id: commentId } } }
       );
 
       // Delete the comment
       await Comment.findByIdAndDelete(commentId);
 
-      return sendSuccessResponse(res, {
-        message: 'Comment deleted successfully!',
-        memberId: comment.member,
-      });
+      return sendSuccessResponse(
+        res,
+        {
+          message: "Comment deleted successfully!",
+          memberId: comment.member,
+        },
+        204
+      );
     } catch (error) {
-      console.error('Error deleting comment:', error);
+      console.error("Error deleting comment:", error);
       return sendErrorResponse(
         res,
-        error.message || 'An error occurred',
-        error.statusCode || 500,
+        error.message || "An error occurred",
+        error.statusCode || 500
       );
     }
   }
