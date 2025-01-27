@@ -170,11 +170,12 @@ If you are running the API on a different port, remember to replace localhost:30
 
 ## API Documentation
 
-For detailed information on request parameters, response formats, and example payloads, check out the following resource:
+For detailed information on request parameters, response formats, and example payloads, check out the following resources:
 
-- **Postman Collection**: Access the collection of API endpoints for testing in Postman:. [Link to BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
-
-This resource will help you manage authentication, members, content posts, feedback comments, and chat functionalities.
+- **Swagger Static Documentation**: Access the this Url for VIEW ONLY when the sever is running: [Link for VIEW ONLY since swagger do not accept automatic authentication using cookies, but allows manual authentication using them, This API is design to use cookies for authencation](http://localhost:3000/api-docs)
+- **Postman Collection**: Access the this Url for view:. [Link to BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
+- **Test Postman Collection**: Access this Url for API test: [Link to BoroHubMedia API Testing](https://www.postman.com/joint-operations-specialist-41505418/workspace/my-workspace/request/40210928-2b7fd524-3d0d-4693-9710-815f0c9471e4?action=share&creator=40210928&ctx=documentation&active-environment=40210928-c969341f-fbc9-401b-bb4c-d32e6f52f988)
+  This resource will help you manage authentication, members, content posts, feedback comments, and chat functionalities.
 
 ### Using a REST API Client
 
@@ -688,6 +689,7 @@ Hi, I'm Ngong Boris Kukwah, an ALX Africa Fullstack Software Engineering student
 - **Twitter**: [@boro_didier1](https://x.com/boro_didier1)
 - **GitHub**: [borisngong](https://github.com/borisngong)
 - **APIDOCUMENTATION**: [BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
+- **TestDocumentationInPostman**: [BoroHubMedia API Test](https://www.postman.com/joint-operations-specialist-41505418/workspace/my-workspace/request/40210928-2b7fd524-3d0d-4693-9710-815f0c9471e4?action=share&creator=40210928&ctx=documentation&active-environment=40210928-c969341f-fbc9-401b-bb4c-d32e6f52f988)
 
 ```
 
