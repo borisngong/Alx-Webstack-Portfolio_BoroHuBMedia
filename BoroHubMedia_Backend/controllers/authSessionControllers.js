@@ -1,19 +1,19 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const Member = require("../coreModels/memberSchema");
-const { BDERROR } = require("../middlewares/handleErrors");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const Member = require('../coreModels/memberSchema');
+const { BDERROR } = require('../middlewares/handleErrors');
 const {
   initializeAccountSchema,
-} = require("../coreModels/schemas/initializeAccountSchema");
+} = require('../coreModels/schemas/initializeAccountSchema');
 const {
   sendSuccessResponse,
   sendErrorResponse,
-} = require("../coreUtils/_bd_responseHandlers");
+} = require('../coreUtils/_bd_responseHandlers');
 const {
   generateAccessToken,
   generateRefreshToken,
-} = require("../coreUtils/tokenUtils");
-const { sanitizeMemberData } = require("../coreUtils/sanitized");
+} = require('../coreUtils/tokenUtils');
+const { sanitizeMemberData } = require('../coreUtils/sanitized');
 
 /**
  * MemberAuthenticationController class to manage member-related operations
@@ -27,8 +27,9 @@ class MemberAuthenticationController {
   static async initializeAccount(req, res) {
     try {
       // Validate input using Joi schema
-      const { plainPassword, emailAddress, handle, fullName, aboutMe, role } =
-        await initializeAccountSchema.validateAsync(req.body);
+      const {
+        plainPassword, emailAddress, handle, fullName, aboutMe, role,
+      } = await initializeAccountSchema.validateAsync(req.body);
 
       // Check for existing member with the same email or handle
       const existingUser = await Member.findOne({
@@ -36,7 +37,7 @@ class MemberAuthenticationController {
       });
 
       if (existingUser) {
-        throw new BDERROR("Email or handle is already taken", 400);
+        throw new BDERROR('Email or handle is already taken', 400);
       }
 
       // Hash the password and create a new member
@@ -55,12 +56,15 @@ class MemberAuthenticationController {
       return sendSuccessResponse(
         res,
         {
-          message: "Member account initialized successfully!",
+          message: 'Member account initialized successfully!',
           member: sanitizeMemberData(savedUser),
         },
-        201
+        201,
       );
     } catch (error) {
+      if (error instanceof BDERROR) {
+        return sendErrorResponse(res, error, error.statusCode);
+      }
       return sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
@@ -75,7 +79,7 @@ class MemberAuthenticationController {
 
     try {
       if (!emailAddress && !handle) {
-        throw new BDERROR("Email or handle is required to access account", 400);
+        throw new BDERROR('Email or handle is required to access account', 400);
       }
 
       // Ensure at least one of the email or handle is valid
@@ -86,24 +90,24 @@ class MemberAuthenticationController {
       if (!member) {
         return sendErrorResponse(
           res,
-          new BDERROR("Input details incorrect", 401)
+          new BDERROR('Input details incorrect', 401),
         );
       }
 
       if (!plainPassword) {
-        throw new BDERROR("Password is required to access account", 400);
+        throw new BDERROR('Password is required to access account', 400);
       }
 
       // Compare the hashed password with the provided password
       const isValidPassword = await bcrypt.compare(
         plainPassword,
-        member.hashedPassword
+        member.hashedPassword,
       );
 
       if (!isValidPassword) {
         return sendErrorResponse(
           res,
-          new BDERROR("Input details incorrect", 401)
+          new BDERROR('Input details incorrect', 401),
         );
       }
 
@@ -111,34 +115,34 @@ class MemberAuthenticationController {
       const refreshToken = generateRefreshToken(member);
 
       if (
-        req.cookies.accessToken &&
-        req.cookies.accessToken.expires < Date.now()
+        req.cookies.accessToken
+        && req.cookies.accessToken.expires < Date.now()
       ) {
         // Refresh the access token
         const newAccessToken = await this.refreshAccessToken(req, res);
         return sendSuccessResponse(
           res,
           {
-            message: "Access token refreshed successfully!",
+            message: 'Access token refreshed successfully!',
             accessToken: newAccessToken,
           },
-          200
+          200,
         );
       }
 
       // Set the access token in an HttpOnly cookie
-      res.cookie("accessToken", accessToken, {
+      res.cookie('accessToken', accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "None",
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'None',
         maxAge: 1 * 60 * 60 * 1000,
       });
 
       // Set refresh token in a cookie
-      res.cookie("refreshToken", refreshToken, {
+      res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "None",
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'None',
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
@@ -148,12 +152,15 @@ class MemberAuthenticationController {
       return sendSuccessResponse(
         res,
         {
-          message: "Member account accessed successfully!",
+          message: 'Member account accessed successfully!',
           member: sanitizedMember,
         },
-        200
+        200,
       );
     } catch (error) {
+      if (error instanceof BDERROR) {
+        return sendErrorResponse(res, error, error.statusCode);
+      }
       return sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
@@ -166,21 +173,24 @@ class MemberAuthenticationController {
   static async endSession(req, res) {
     try {
       if (!req.cookies.accessToken) {
-        throw new BDERROR("No session to end", 400);
+        throw new BDERROR('No session to end', 400);
       }
 
       // Clear the access token and refresh token cookies
-      res.clearCookie("accessToken");
-      res.clearCookie("refreshToken");
+      res.clearCookie('accessToken');
+      res.clearCookie('refreshToken');
 
       return sendSuccessResponse(
         res,
         {
-          message: "Member session ended successfully!",
+          message: 'Member session ended successfully!',
         },
-        203
+        203,
       );
     } catch (error) {
+      if (error instanceof BDERROR) {
+        return sendErrorResponse(res, error, error.statusCode);
+      }
       return sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
@@ -194,7 +204,7 @@ class MemberAuthenticationController {
     const token = req.cookies.accessToken;
 
     if (!token) {
-      throw new BDERROR("No session/token found, please log in", 404);
+      throw new BDERROR('No session/token found, please log in', 404);
     }
 
     try {
@@ -204,7 +214,7 @@ class MemberAuthenticationController {
       const member = await Member.findOne({ _id: id });
 
       if (!member) {
-        throw new BDERROR("Member not found", 404);
+        throw new BDERROR('Member not found', 404);
       }
 
       // Sanitize member data to return without the password
@@ -213,10 +223,10 @@ class MemberAuthenticationController {
       return sendSuccessResponse(
         res,
         {
-          message: "Current member session retrieved successfully!",
+          message: 'Current member session retrieved successfully!',
           member: sanitizedMember,
         },
-        200
+        200,
       );
     } catch (error) {
       if (error instanceof BDERROR) {
@@ -224,8 +234,8 @@ class MemberAuthenticationController {
       }
       return sendErrorResponse(
         res,
-        new BDERROR("Invalid token, please you must be logged in", 401),
-        401
+        new BDERROR('Invalid token, please you must be logged in', 401),
+        401,
       );
     }
   }
