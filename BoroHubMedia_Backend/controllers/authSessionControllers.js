@@ -28,7 +28,7 @@ class MemberAuthenticationController {
       const {
         plainPassword, emailAddress, handle, fullName, aboutMe, role,
       } = await initializeAccountSchema.validateAsync(req.body);
-
+      // Check if the email or handle is already taken
       const existingUser = await Member.findOne({
         $or: [{ emailAddress }, { handle }],
       });
@@ -36,7 +36,7 @@ class MemberAuthenticationController {
       if (existingUser) {
         throw new BDERROR('Email or handle is already taken', 400);
       }
-
+      // Hash the password
       const bcryptHashedPassword = await bcrypt.hash(plainPassword, 10);
       const newUser = new Member({
         fullName,
@@ -73,6 +73,7 @@ class MemberAuthenticationController {
    */
   static async accessAccount(req, res, next) {
     try {
+      // Check if the email or handle is provided
       const { emailAddress, handle, plainPassword } = req.body;
       if (!emailAddress && !handle) {
         throw new BDERROR('Email or handle is required to access account', 400);
@@ -85,7 +86,7 @@ class MemberAuthenticationController {
       if (!member || !plainPassword) {
         throw new BDERROR('Input details incorrect', 401);
       }
-
+      // Check if the password is valid
       const isValidPassword = await bcrypt.compare(
         plainPassword,
         member.hashedPassword,
@@ -97,14 +98,14 @@ class MemberAuthenticationController {
 
       const accessToken = generateAccessToken(member);
       const refreshToken = generateRefreshToken(member);
-
+      // Set the access token cookie
       res.cookie('accessToken', accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'None',
         maxAge: 1 * 60 * 60 * 1000,
       });
-
+      // Set the refresh token cookie
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -139,6 +140,7 @@ class MemberAuthenticationController {
       if (!req.cookies.accessToken) {
         throw new BDERROR('No session to end', 400);
       }
+      // Clear the cookies
       res.clearCookie('accessToken');
       res.clearCookie('refreshToken');
       return sendSuccessResponse(
@@ -166,7 +168,7 @@ class MemberAuthenticationController {
       if (!token) {
         throw new BDERROR('No session/token found, please log in', 404);
       }
-
+      // Verify the token
       const data = jwt.verify(token, process.env.SKEY_JWT);
       const member = await Member.findById(data.id);
       if (!member) {
