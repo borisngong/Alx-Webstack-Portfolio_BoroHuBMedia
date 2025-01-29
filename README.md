@@ -75,6 +75,18 @@ cd BoroHubMedia_Backend
 
 ### Step 2. Install Dependencies
 
+Make sure you have node installed:
+
+```bash
+node -v
+```
+
+Run the following command to install node:
+
+```bash
+nvm install node
+```
+
 Install the required dependencies by running the following command:
 
 ```bash
@@ -103,6 +115,13 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 ### Step 4. Create a `.env` File
 
 In the BoroHubMedia_Backend directory, create a `.env` file to store your environment variables:
+Start by installing the dotenv package:
+
+```bash
+npm install dotenv
+```
+
+Then create the .env file:
 
 ```bash
 touch .env
