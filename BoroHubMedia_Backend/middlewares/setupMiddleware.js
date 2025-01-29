@@ -11,7 +11,7 @@ const morgan = require('morgan');
  */
 const setupMiddleware = (app) => {
   // Enable logging using Morgan in development mode
-  app.use(morgan('dev'));
+  app.use(morgan(':method :url :status :response-time ms'));
 
   // Enable JSON parsing for request bodies
   app.use(express.json());
