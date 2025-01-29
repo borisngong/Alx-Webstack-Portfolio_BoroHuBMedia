@@ -1,267 +1,326 @@
-const { BDERROR } = require("../middlewares/handleErrors");
-const Content = require("../coreModels/contentPost");
-const Comment = require("../coreModels/feedbackComment");
-const Member = require("../coreModels/memberSchema");
+const mongoose = require('mongoose');
+const { BDERROR } = require('../middlewares/handleErrors');
+const Content = require('../coreModels/contentPost');
+const Comment = require('../coreModels/feedbackComment');
+const Member = require('../coreModels/memberSchema');
 const {
   sendSuccessResponse,
   sendErrorResponse,
-} = require("../coreUtils/_bd_responseHandlers");
-const { sanitizeMemberData } = require("../coreUtils/sanitized");
-const { createFileUrl } = require("../coreUtils/create-fileUrl");
+} = require('../coreUtils/_bd_responseHandlers');
+const { sanitizeMemberData } = require('../coreUtils/sanitized');
+const { createFileUrl } = require('../coreUtils/create-fileUrl');
 
 class ContentPostController {
   /**
-   * Create a new content post with media
-   * @param {express.Request} req - The request object
-   * @param {express.Response} res - The response object
+   *  Creates a new content post with the specified content and media files
+   * @param {*} req  - The request object
+   * @param {*} res  - The response object
+   * @param {*} next  - The next middleware function
+   * @returns
    */
-  static async createContentPost(req, res) {
-    const { content } = req.body; // Content (text) from the request body
-    const memberId = req.member._id; // Member ID from authenticated member
-    const files = req.files || []; // Uploaded files (media)
+  static async createContentPost(req, res, next) {
+    const { content } = req.body;
+    const memberId = req.member._id;
+    const files = req.files || [];
 
     try {
-      if (!content) throw new BDERROR("Content is required", 400);
-      if (!files.length)
-        throw new BDERROR("Please upload at least one media file", 400);
+      if (!content) throw new BDERROR('Content is required', 400);
+      if (!files.length) throw new BDERROR('Please upload at least one media file', 400);
 
-      // Fetch the member who is creating the post
       const member = await Member.findById(memberId);
-      if (!member) throw new BDERROR("Member not found", 404);
+      if (!member) throw new BDERROR('Member not found', 404);
 
-      // Generate media URLs from uploaded files
       const mediaUrls = files.map((file) => createFileUrl(file.filename));
 
-      // Create a new content post document
       const newContent = new Content({
         author: memberId,
         content,
         media: mediaUrls,
       });
 
-      // Save the new post and update the member's post list
       const savedPost = await newContent.save();
       member.contentPosts = [...(member.contentPosts || []), savedPost._id];
       await member.save();
 
-      // Send success response with the new post and sanitized member data
       return sendSuccessResponse(
         res,
         {
-          message: "Post created successfully!",
+          message: 'Post created successfully!',
           post: savedPost,
           member: sanitizeMemberData(member),
         },
-        201
+        201,
       );
     } catch (error) {
-      return sendErrorResponse(res, error.message, error.statusCode || 500);
+      console.error('Error creating content post:', error);
+      return next
+        ? next(error)
+        : sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
 
   /**
-   * Update an existing content post
-   * @param {express.Request} req - The request object
-   * @param {express.Response} res - The response object
+   *  Updates an existing content post with the specified content and media files
+   * @param {*} req  - The request object
+   * @param {*} res  - The response object
+   * @param {*} next  - The next middleware function
+   * @returns
    */
-  static async updateContentPost(req, res) {
+  static async updateContentPost(req, res, next) {
     const { postId } = req.params;
     const { content } = req.body;
     const files = req.files || [];
     const memberId = req.member._id;
 
     try {
-      // Fetch the post to update
+      // Validate postId format
+      if (!mongoose.Types.ObjectId.isValid(postId)) {
+        throw new BDERROR('Invalid post ID format', 400);
+      }
+
       const post = await Content.findById(postId);
-      if (!post) throw new BDERROR("Post not found", 404);
+      if (!post) throw new BDERROR('Post not found', 404);
       if (post.author.toString() !== memberId) {
         throw new BDERROR(
-          "Unauthorized: You can only update your own posts",
-          403
+          'Unauthorized: You can only update your own posts',
+          403,
         );
       }
 
-      // Update the content if provided
       if (content) post.content = content.trim() || post.content;
 
-      // Validate and update media files if provided
       if (files.length > 0) {
-        if (files.length < 4)
-          throw new BDERROR("Please upload at least four images", 400);
+        if (files.length < 4) throw new BDERROR('Please upload at least four images', 400);
         if (files.length > 8) {
           throw new BDERROR(
-            "File upload limit exceeded. Only 10 files are allowed.",
-            400
+            'File upload limit exceeded. Only 10 files are allowed.',
+            400,
           );
         }
 
         const mediaUrls = files.map((file) => createFileUrl(file.filename));
-        // Add new media URLs to existing media URLs
         post.media = [...post.media, ...mediaUrls];
       }
 
       const updatedPost = await post.save();
       return sendSuccessResponse(
         res,
-        { message: "Content updated successfully!", post: updatedPost },
-        200
+        {
+          message: 'Content updated successfully!',
+          post: updatedPost,
+        },
+        200,
       );
     } catch (error) {
-      return sendErrorResponse(res, error.message, error.statusCode || 500);
+      console.error('Error updating content post:', error);
+      return next
+        ? next(error)
+        : sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
 
   /**
-   * Like a content post
-   * @param {express.Request} req - The request object
-   * @param {express.Response} res - The response object
+   *  Adds a like to a content post with the specified postId
+   * @param {*} req  - The request object
+   * @param {*} res  - The response object
+   * @param {*} next  - The next middleware function
+   * @returns
    */
-  static async likeContentPost(req, res) {
+  static async likeContentPost(req, res, next) {
     const { postId } = req.params;
     const memberId = req.member._id;
 
     try {
-      // Fetch the post to like
+      // Validate postId format
+      if (!mongoose.Types.ObjectId.isValid(postId)) {
+        throw new BDERROR('Invalid post ID format', 400);
+      }
+      // Check if post exists
       const post = await Content.findById(postId);
-      if (!post) throw new BDERROR("Post not found", 404);
-      if (post.likes.includes(memberId))
-        throw new BDERROR("You have already liked this post", 400);
-
+      if (!post) throw new BDERROR('Post not found', 404);
+      if (post.likes.includes(memberId)) throw new BDERROR('You have already liked this post', 400);
+      // Add memberId to the likes array and increment likeCount
       post.likes.push(memberId);
-      post.likeCount += 1; // Increment like count
+      post.likeCount += 1;
 
       await post.save();
       return sendSuccessResponse(
         res,
-        { message: "Post liked successfully!", post },
-        200
+        {
+          message: 'Post liked successfully!',
+          post,
+        },
+        200,
       );
     } catch (error) {
-      return sendErrorResponse(res, error.message, error.statusCode || 500);
+      console.error('Error liking content post:', error);
+      return next
+        ? next(error)
+        : sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
 
   /**
-   * Unlike a content post
-   * @param {express.Request} req - The request object
-   * @param {express.Response} res - The response object
+   *  Removes a like from a content post with the specified input
+   * @param {*} req  - The request object
+   * @param {*} res   - The response object
+   * @param {*} next  - The next middleware function
+   * @returns
    */
-  static async unlikeContentPost(req, res) {
+  static async unlikeContentPost(req, res, next) {
     const { postId } = req.params;
     const memberId = req.member._id;
 
     try {
-      // Fetch the post to unlike
+      // Validate postId format
+      if (!mongoose.Types.ObjectId.isValid(postId)) {
+        throw new BDERROR('Invalid post ID format', 400);
+      }
+      // Check if post exists
       const post = await Content.findById(postId);
-      if (!post) throw new BDERROR("Post not found", 404);
-      if (!post.likes.includes(memberId))
-        throw new BDERROR("You have not liked this post yet", 400);
-      // Remove member ID from likes
-      post.likes = post.likes.filter((id) => id.toString() !== memberId);
-      post.likeCount -= 1; // Decrement like count
+      if (!post) throw new BDERROR('Post not found', 404);
 
-      await post.save();
-      return sendSuccessResponse(
-        res,
-        { message: "Post unliked successfully!", post },
-        200
+      // Check if memberId is in the likes array
+      const hasLiked = post.likes.some(
+        (id) => id.toString() === memberId.toString(),
       );
-    } catch (error) {
-      return sendErrorResponse(res, error.message, error.statusCode || 500);
-    }
-  }
-
-  /**
-   * Delete a content post and associated comments
-   * @param {express.Request} req - The request object
-   * @param {express.Response} res - The response object
-   */
-  static async deleteContentPost(req, res) {
-    const { postId } = req.params;
-    const memberId = req.member._id;
-
-    try {
-      // Fetch the post to delete
-      const post = await Content.findById(postId);
-      if (!post) throw new BDERROR("Post not found", 404);
-
-      const member = await Member.findById(memberId);
-      if (!member) throw new BDERROR("Member not found", 404);
-
-      // Check ownership or admin role
-      if (post.author.toString() !== memberId && member.role !== "admin") {
-        throw new BDERROR("Unauthorized: You cannot delete this post", 403);
+      if (!hasLiked) {
+        throw new BDERROR('You have not liked this post yet', 400);
       }
 
-      // Delete associated comments
-      await Comment.deleteMany({ _id: { $in: post.comments } });
+      // Remove the memberId from the likes array
+      post.likes = post.likes.filter(
+        (id) => id.toString() !== memberId.toString(),
+      );
+      post.likeCount = Math.max(0, post.likeCount - 1);
+      await post.save();
+      return sendSuccessResponse(
+        res,
+        {
+          message: 'Post unliked successfully!',
+          post,
+        },
+        200,
+      );
+    } catch (error) {
+      console.error('Error unliking content post:', error);
+      return next
+        ? next(error)
+        : sendErrorResponse(res, error, error.statusCode || 500);
+    }
+  }
 
-      // Update members who liked the post
+  /**
+   * Delete a content post with the specified postId and its comments
+   * @param {*} req  - The request object
+   * @param {*} res  - The response object
+   * @param {*} next - The next middleware function
+   * @returns
+   */
+  static async deleteContentPost(req, res, next) {
+    const { postId } = req.params;
+    const memberId = req.member._id;
+
+    try {
+      // Validate postId format
+      if (!mongoose.Types.ObjectId.isValid(postId)) {
+        throw new BDERROR('Invalid post ID format', 400);
+      }
+
+      const post = await Content.findById(postId);
+      if (!post) throw new BDERROR('Post not found', 404);
+      const member = await Member.findById(memberId);
+      if (!member) throw new BDERROR('Member not found', 404);
+
+      if (post.author.toString() !== memberId && member.role !== 'admin') {
+        throw new BDERROR('Unauthorized: You cannot delete this post', 403);
+      }
+      // Delete the post and its comments
+      await Comment.deleteMany({ _id: { $in: post.comments } });
       await Member.updateMany(
         { _id: { $in: post.likes } },
-        { $pull: { likes: postId } }
+        { $pull: { likes: postId } },
       );
-
-      // Remove post reference from the author's post list
+      // Remove the post from the author's contentPosts array
       await Member.updateOne({ _id: memberId }, { $pull: { posts: postId } });
-
       await Content.findByIdAndDelete(postId);
 
       return sendSuccessResponse(
         res,
-        { message: "Post deleted successfully!" },
-        204
+        {
+          message: 'Post deleted successfully!',
+        },
+        204,
       );
     } catch (error) {
-      return sendErrorResponse(res, error.message, error.statusCode || 500);
+      console.error('Error deleting content post:', error);
+      return next
+        ? next(error)
+        : sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
 
   /**
-   * Retrieve a member's post by ID
-   * @param {express.Request} req - The request object
-   * @param {express.Response} res - The response object
+   *  Find and retrieves a content post with the specified postId
+   * @param {*} req  - The request object
+   * @param {*} res  - The response object
+   * @param {*} next   - The next middleware function
+   * @returns
    */
-  static async getContentPost(req, res) {
+  static async getContentPost(req, res, next) {
     const { postId } = req.params;
 
     try {
-      // Fetch the post by ID
-      const post = await Content.findById(postId).populate("author", "handle");
-      if (!post) throw new BDERROR("Post not found", 404);
+      // Validate postId format
+      if (!mongoose.Types.ObjectId.isValid(postId)) {
+        throw new BDERROR('Invalid post ID format', 400);
+      }
+
+      const post = await Content.findById(postId).populate('author', 'handle');
+      if (!post) throw new BDERROR('Post not found', 404);
 
       return sendSuccessResponse(res, {
-        message: "Post retrieved successfully!",
+        message: 'Post retrieved successfully!',
         post,
       });
     } catch (error) {
-      return sendErrorResponse(res, error.message, error.statusCode || 500);
+      console.error('Error retrieving content post:', error);
+      return next
+        ? next(error)
+        : sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
 
   /**
-   * Retrieve all posts of a specific member
-   * @param {express.Request} req - The request object
-   * @param {express.Response} res - The response object
+   *  Find and retrieves all member content posts in the database
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns
    */
-  static async getAllMemberPosts(req, res) {
+  static async getAllMemberPosts(req, res, next) {
     const { memberId } = req.params;
 
     try {
-      // Fetch all posts by the member ID
+      // Validate memberId format
+      if (!mongoose.Types.ObjectId.isValid(memberId)) {
+        throw new BDERROR('Invalid member ID format', 400);
+      }
+
       const posts = await Content.find({ author: memberId }).populate(
-        "author",
-        "handle"
+        'author',
+        'handle',
       );
-      if (!posts.length)
-        throw new BDERROR("No posts found for this member", 404);
+      if (!posts.length) throw new BDERROR('No posts found for this member', 404);
 
       return sendSuccessResponse(res, {
-        message: "Posts retrieved successfully!",
+        message: 'Posts retrieved successfully!',
         posts,
       });
     } catch (error) {
-      return sendErrorResponse(res, error.message, error.statusCode || 500);
+      return next
+        ? next(error)
+        : sendErrorResponse(res, error, error.statusCode || 500);
     }
   }
 }
