@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const helmet = require('helmet');
 const setupMiddleware = require('./middlewares/setupMiddleware');
 const setupSwagger = require('./swagger/setupSwagger');
@@ -26,11 +25,6 @@ const setupServer = () => {
   // Swagger setup
   setupSwagger(app);
 
-  // Use path to serve static files
-  app.use(
-    '/media/images',
-    express.static(path.join(__dirname, 'media/images')),
-  );
   app.use(helmet());
   // Rate limiter for general API endpoints setup to limit requests
   app.use('/api', apiLimiter);
