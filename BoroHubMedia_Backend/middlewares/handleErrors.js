@@ -1,5 +1,5 @@
 /**
- * Custom error class to handle application errors
+ * Custom error class to handle api errors
  */
 class BDERROR extends Error {
   /**
@@ -23,18 +23,17 @@ class BDERROR extends Error {
  * @param {Function} next - The next middleware function
  */
 const errorHandler = (err, req, res, next) => {
-  if (err instanceof BDERROR) {
-    return res.status(err.status).json({
-      error: err.message,
-      status: err.status,
-    });
-  }
+  const statusCode = err.status || 500;
 
-  // For unhandled errors, call the next middleware
-  return res.status(500).json({
-    error: "Internal server error",
-    status: 500,
+  // Send the error response
+  res.status(statusCode).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+    status: statusCode,
+    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });
+
+  next();
 };
 
 module.exports = { errorHandler, BDERROR };
