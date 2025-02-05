@@ -317,17 +317,15 @@ You can test additional endpoints following the same procedures. Select the appr
 
 - Use **View > Show Postman Console** to debug requests and responses.
 
-## Prerequisites for Creating Your Database and .env File
+## Prerequisites for Testing BoroHubMedia API by Creating Your Database and .env File
 
-Before running the API, make sure you have the following software installed:
+Follow the link to download and install MongoDB
 
 - [MongoDB](https://www.mongodb.com/): Database management system used to store data for the API.
 
 ## Installation Instructions
 
-Follow the links above to download MongoDB.
-
-### Step 3. Set Up MongoDB Connection
+### Step 1: Set Up MongoDB Connection
 
 You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
@@ -344,7 +342,7 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
 ---
 
-### Step 4. Create a `.env` File
+### Step 2: Create a `.env` File
 
 In the BoroHubMedia_Backend directory, create a `.env` file to store your environment variables:
 
@@ -354,7 +352,7 @@ Create the .env file:
 touch .env
 ```
 
-### Step 5. Configure Environment Variables
+### Step 3: Configure Environment Variables
 
 Add the following variables to your `.env` file:
 
