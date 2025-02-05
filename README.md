@@ -63,7 +63,7 @@ cd Alx-Webstack-Portfolio_BoroHuBMedia
 cd BoroHubMedia_Backend
 ```
 
-## BoroHubMediaBackend
+## BoroHubMedia_Backend
 
 This repository contains the backend code for BoroHubMedia.
 
