@@ -1,7 +1,7 @@
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const helmet = require('helmet');
 
 /**
  * Sets up middleware for an Express application
@@ -18,12 +18,8 @@ const setupMiddleware = (app) => {
 
   // Parse cookies from request headers
   app.use(cookieParser());
-
-  // Serve static files from the media/images directory
-  app.use(
-    '/media/images',
-    express.static(path.join(__dirname, 'media/images')),
-  );
+  // Enable security headers using Helmet
+  app.use(helmet());
 };
 
 module.exports = setupMiddleware;
