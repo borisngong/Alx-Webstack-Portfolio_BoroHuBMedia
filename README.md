@@ -91,7 +91,7 @@ npm install dotenv
 
 ## 3. Run the API
 
-Navigate to the `BoroHubMedia_Backend` directory in your terminal and start the server using:
+Ensure you're in `BoroHubMedia_Backend` directory in your terminal and start the server using:
 
 ```bash
 npm start
