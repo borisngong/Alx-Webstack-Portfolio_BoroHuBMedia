@@ -385,17 +385,34 @@ touch .env
 
 ### Step 3: Configure Environment Variables
 
-Add the following variables to your `.env` file:
+To configure your environment variables, create a `.env` file in the `BoroHubMedia_Backend` directory and add the following variables:
 
 ```plaintext
-PORT=3000  # Replace "3000" with your preferred port, or leave it as default
-SKEY_JWT=your_secret_key_here
-EXP_JWT=24h  # Adjust the JWT token expiration as needed (e.g., 24h, 7d)
-UPLOADS_BASE_URL=http://localhost:3000
-REFRESH_JWT=your_refresh_token_here
-NODE_ENV=development  # Options: development, production, or test
+# Server port configuration
+PORT=3000  # Replace "3000" with your preferred port number, or leave it as default.
+
+# JWT (JSON Web Token) settings
+SKEY_JWT=your_secret_key_here  # Set your secret key for signing JWT tokens.
+EXP_JWT=24h  # Set the expiration time for JWT tokens (e.g., 24h for 24 hours, 7d for 7 days).
+
+# Base URL for media uploads
+UPLOADS_BASE_URL=http://localhost:3000  # Update with your server's base URL if different.
+
+# Refresh token settings
+REFRESH_JWT=your_refresh_token_here  # Set your secret key for generating refresh tokens.
+
+# Environment mode
+NODE_ENV=development  # Set the environment mode (development, production, or test).
+
+# MongoDB connection string
 DB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
+# Replace <username>, <password>, <cluster>, and <database> with your actual MongoDB Atlas credentials.
 ```
+
+## N.B
+
+- Ensure that you replace the placeholder values (like `your_secret_key_here`, `<username>`, `<password>`, etc.) with your actual credentials and preferred settings.
+- This `.env` file is crucial for your application to run correctly, as it contains sensitive information and configurations.
 
 ### Explanation of Environment Variables:
 
@@ -404,7 +421,7 @@ DB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retr
 - **`EXP_JWT`**: Expiration time for JWT tokens (e.g., `24h` for 24 hours).
 - **`UPLOADS_BASE_URL`**: Base URL for media uploads.
 - **`REFRESH_JWT`**: Secret key for generating refresh tokens.
-- **`NODE_ENV`**: Environment mode (`development`, `production`, or `test`).
+- **`NODE_ENV`**: Environment mode (`development`,`test`).
 - **`DB_URI`**: MongoDB connection string. Replace `<username>`, `<password>`, `<cluster>`, and `<database>` with your actual MongoDB Atlas credentials that you created above.
 
 ---
