@@ -277,7 +277,7 @@ You can now use tools like Postman or cURL to test the API endpoints.
 2. Replace `:commentId` in the URL.
 3. Click **Send**.
 
-## 7. Test Chat Management Endpoints
+## 9. Test Chat Management Endpoints
 
 ### Create a Chat:
 
