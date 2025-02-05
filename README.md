@@ -65,7 +65,7 @@ cd BoroHubMedia_Backend
 
 ## BoroHubMedia_Backend
 
-This repository contains the backend code for BoroHubMedia.
+This directory contains the backend code for BoroHubMedia API
 
 ## 2. Install Dependencies
 
