@@ -166,7 +166,7 @@ You can now use tools like Postman or cURL to test the API endpoints.
 ### Initialize an Account:
 
 1. In Postman, go to the **Authentication Management** folder.
-2. Select the **Initialize Account** request.
+2. Select the **initializeAccount Endpoint** request
 3. Set the request body to **raw JSON** and provide this payload:
    ```json
    {
@@ -179,11 +179,11 @@ You can now use tools like Postman or cURL to test the API endpoints.
    }
    ```
    Role can either be member or admin
-4. Click **Send** to create an account.
+4. Click **Send** to create an account
 
 ### Access Account (Login):
 
-1. Select **Access Account**.
+1. Select **AccessAccount Endpoint**
 2. Set the request body to **raw JSON** and provide:
    ```json
    {
@@ -195,19 +195,19 @@ You can now use tools like Postman or cURL to test the API endpoints.
 
 ### Get Current Session:
 
-1. Select **Get Current Session**.
-2. Click **Send** to retrieve user details.
+1. Select **GetMemberSession Endpont**
+2. Click **Send** to retrieve user details
 
 ### End Session (Logout):
 
-1. Select **End Session**.
-2. Click **Send** to log out.
+1. Select **EndMemberSession Endpoint**.
+2. Click **Send** to log out
 
 ## 6. Test Member Management Endpoints
 
-### Update Member Details:
+### Update Member Dtails:
 
-1. Select **Update Member Details**.
+1. Select **Update Member Endpoint**.
 2. Set the request body to **raw JSON**:
    ```json
    {
@@ -215,74 +215,74 @@ You can now use tools like Postman or cURL to test the API endpoints.
      "bio": "Updated bio information"
    }
    ```
-3. Click **Send** to update the member details.
+3. Click **Send** to update the member details
 
 ### Upload Profile Picture:
 
-1. Select **Upload Profile Picture**.
-2. Use **POST** with **form-data**.
-3. Add a key `avatar` and upload an image.
-4. Click **Send**.
+1. Select **Upload member's Profile Picture**
+2. Use **POST** with **form-data**
+3. Add a key `avatar` and upload an image
+4. Click **Send**
 
 ### Follow a Member:
 
-1. Select **Follow a Member**.
-2. Replace `:memberId` in the URL.
-3. Click **Send**.
+1. Select **Follow a Member**
+2. Replace `:memberId` in the URL
+3. Click **Send**
 
 ## 7. Test Content Post Management Endpoints
 
 ### Create Content Post:
 
-1. Select **Create Content Post**.
-2. Use **POST** with **form-data**.
-3. Add `content`: "This is my first post."
-4. Upload at least 4 images.
-5. Click **Send**.
+1. Select **Create Content Post With Images**
+2. Use **POST** with **form-data**
+3. Add `content`: "This is my first post"
+4. Upload at least 4 images
+5. Click **Send**
 
 ### Like a Post:
 
-1. Select **Like a Post**.
-2. Replace `:postId` in the URL.
-3. Click **Send**.
+1. Select **Like a Content Post**
+2. Replace `:postId` in the URL
+3. Click **Send**
 
 ### Delete a Post:
 
-1. Select **Delete a Post**.
-2. Replace `:postId` in the URL.
-3. Click **Send**.
+1. Select **Delete Content Post**
+2. Replace `:postId` in the URL
+3. Click **Send**
 
 ## 8. Test Comment Management Endpoints
 
 ### Create a Comment:
 
-1. Select **Create a Comment**.
+1. Select **Create Comment Endpont**
 2. Set the request body to **raw JSON**:
    ```json
    {
      "content": "This is a comment on the post"
    }
    ```
-3. Click **Send**.
+3. Click **Send**
 
 ### Like a Comment:
 
-1. Select **Like a Comment**.
-2. Replace `:commentId` in the URL.
-3. Click **Send**.
+1. Select **Like Comment Endpoint**
+2. Replace `:commentId` in the URL
+3. Click **Send**
 
 ### Delete a Comment:
 
-1. Select **Delete a Comment**.
-2. Replace `:commentId` in the URL.
-3. Click **Send**.
+1. Select **Delete Comment**
+2. Replace `:commentId` in the URL
+3. Click **Send**
 
 ## 9. Test Chat Management Endpoints
 
 ### Create a Chat:
 
-- Select the **Create a Chat** request.
-- Set the request body to `raw` and `JSON`.
+- Select the **Chat Creation Endpoint** request
+- Set the request body to `raw` and `JSON`
 - Provide the following sample payload:
   ```json
   {
@@ -294,9 +294,9 @@ You can now use tools like Postman or cURL to test the API endpoints.
 
 ### Send a Message:
 
-- Select the **Send a Message** request.
-- Replace `:chatId` in the URL with the ID of the chat.
-- Set the request body to `raw` and `JSON`.
+- Select the **Chat Entry Creation Endpoint** request.
+- Replace `:chatId` in the URL with the ID of the chat
+- Set the request body to `raw` and `JSON`
 - Provide the following sample payload:
   ```json
   {
@@ -307,9 +307,9 @@ You can now use tools like Postman or cURL to test the API endpoints.
 
 ### Delete a Chat:
 
-- Select the **Delete a Chat** request.
+- Select the **Chat Deletion Endpoint** request.
 - Replace `:chatId` in the URL with the ID of the chat you want to delete.
-- Click **Send** to delete the chat.
+- Click **Send** to delete the chat
 
 ---
 
@@ -327,12 +327,12 @@ You can test additional endpoints following the same procedures. Select the appr
 ### Unauthorized Access:
 
 - Try accessing protected endpoints without logging in.
-- Observe `401 Unauthorized` error.
+- Observe `401 Unauthorized` error
 
 ### Resource Not Found:
 
-- Access a non-existent resource (e.g., invalid `postId`).
-- Observe `404 Not Found` error.
+- Access a non-existent resource (e.g., invalid `postId`)
+- Observe `404 Not Found` error
 
 ## 12. Additional Tips
 
@@ -362,9 +362,9 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 
 #### Option 1: MongoDB Atlas (Cloud)
 
-1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create an account.
-2. Log in and set up a new cluster (choose the free option for testing purposes).
-3. Create a new database in your cluster.
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create an account
+2. Log in and set up a new cluster (choose the free option for testing purposes)
+3. Create a new database in your cluster
 
 #### Option 2: MongoDB Local
 
