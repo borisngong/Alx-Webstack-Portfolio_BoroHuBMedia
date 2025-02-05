@@ -63,6 +63,10 @@ cd Alx-Webstack-Portfolio_BoroHuBMedia
 cd BoroHubMedia_Backend
 ```
 
+# BoroHubMediaBackend
+
+This repository contains the backend code for BoroHubMedia.
+
 ## 2. Install Dependencies
 
 Make sure you have Node.js installed by checking the version:
@@ -91,25 +95,45 @@ npm install dotenv
 
 ## 3. Run the API
 
-Ensure you're in `BoroHubMedia_Backend` directory in your terminal and start the server using:
+# Ensure you're in the BoroHubMedia_Backend directory
 
 ```bash
-npm start
+pwd
 ```
 
+Get the current working directory, if true proceed to next step
+
+# Start the server
+
+npm start
 Alternatively, for development mode with automatic restarts:
 
 ```bash
 npm run dev
 ```
 
-Verify the server is running by visiting:
+# Verify the Server is Running
+
+To ensure that the server is running correctly:
+
+1. **Open your web browser** and navigate to the following URL:
 
 ```
 http://localhost:3000/api-docs
 ```
 
 This will display the Swagger documentation for the API.
+This will display the Swagger documentation for the API.
+
+2. **Check your terminal** for the following messages:
+
+- Environmental variables loaded
+- Server running on `http://localhost:3000` (or your desired port)
+- Swagger documentation (view-only) is available
+- Database connected successfully
+
+These messages confirm that the server is operational and ready to handle requests.
+You can now use tools like Postman or cURL to test the API endpoints.
 
 ## 4. Set Up Postman
 
