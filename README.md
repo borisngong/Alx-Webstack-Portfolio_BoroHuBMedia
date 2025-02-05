@@ -115,6 +115,8 @@ Alternatively, for development mode with automatic restarts:
 npm run dev
 ```
 
+Nodeman automatically restarts the server when changes made to the code are saved
+
 # Verify the Server is Running
 
 To ensure that the server is running correctly:
@@ -407,25 +409,7 @@ DB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retr
 
 ---
 
-### Running the API
-
-#### Start the Application
-
-Use the following command to start the server:
-
-```bash
-npm start
-```
-
-### Development Mode with Nodemon
-
-To run the application in development mode, use:
-
-```bash
-npm run dev
-```
-
-Nodeman automatically restarts the server when changes to the code is saved
+You can now proceed to run the api with your .env and Database following step 3 above **RUN API**
 
 ## Basic Usage
 
