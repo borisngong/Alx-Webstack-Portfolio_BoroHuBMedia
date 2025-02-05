@@ -44,26 +44,16 @@ Error responses will include a JSON object with a message detailing the error. F
 
 ```json
 {
-  "error": "Too many requests. Please try again later.",
+  "error": "Too many requests. Please try again later",
   "status": 429
 }
 ```
 
 Additionally, the API utilizes a custom error handling function called BDERROR to standardize error responses. It also provides utility functions, sendSuccessResponse and sendErrorResponse, to ensure that all responses are formatted uniformly. This enhances the overall user experience by providing clear and consistent feedback to the client.
 
-## Prerequisites
+# Step-by-Step Guide to Set Up and Test the API
 
-Before running the API, make sure you have the following software installed:
-
-- [Node.js](https://nodejs.org/): Required to run the server, which is built with Express.js, a lightweight Node.js web application framework.
-- [MongoDB](https://www.mongodb.com/): Database management system used to store data for the API.
-
-## Installation Instructions
-
-Follow the links above to download and install Node.js and MongoDB.
-In order to run the api you will have to follow these **Steps**:
-
-### Step 1. Clone Repository
+## 1. Clone Repository
 
 Clone the repository using the following command in your terminal:
 
@@ -73,27 +63,269 @@ cd Alx-Webstack-Portfolio_BoroHuBMedia
 cd BoroHubMedia_Backend
 ```
 
-### Step 2. Install Dependencies
+## 2. Install Dependencies
 
-Make sure you have node installed:
+Make sure you have Node.js installed by checking the version:
 
 ```bash
 node -v
 ```
 
-Run the following command to install node:
+If Node.js is not installed, install it using:
 
 ```bash
 nvm install node
 ```
 
-Install the required dependencies by running the following command:
+Then, install the required dependencies:
 
 ```bash
 npm install
 ```
 
-Make sure that node is installed
+Additionally, install dotenv for environment variable management:
+
+```bash
+npm install dotenv
+```
+
+## 3. Run the API
+
+Navigate to the `BoroHubMedia_Backend` directory in your terminal and start the server using:
+
+```bash
+npm start
+```
+
+Alternatively, for development mode with automatic restarts:
+
+```bash
+npm run dev
+```
+
+Verify the server is running by visiting:
+
+```
+http://localhost:3000/api-docs
+```
+
+This will display the Swagger documentation for the API.
+
+## 4. Set Up Postman
+
+### Download and Install Postman:
+
+- If you don't already have Postman, download it from [here](https://www.postman.com/downloads/).
+- Install and launch Postman.
+
+### Import the Postman Collection:
+
+- Open the provided Postman collection link: **BoroHubMedia API Documentation**.
+- Click the "Run in Postman" button to import the collection into your Postman workspace.
+
+### Set Up Environment Variables:
+
+- In Postman, create a new environment (e.g., **BoroHubMedia**).
+- Add the following variables:
+  - `base_url`: `http://localhost:3000` (or your server's base URL).
+  - `access_token`: Leave blank; it will be populated automatically after authentication.
+  - `refresh_token`: Leave blank; it will be populated automatically after authentication.
+
+## 5. Test Authentication Endpoints
+
+### Initialize an Account:
+
+1. In Postman, go to the **Authentication Management** folder.
+2. Select the **Initialize Account** request.
+3. Set the request body to **raw JSON** and provide this payload:
+   ```json
+   {
+     "fullName": "Your Full Name",
+     "handle": "yourHandle",
+     "emailAddress": "youremail@example.com",
+     "plainPassword": "yourPassword123",
+     "aboutMe": "A brief description about yourself",
+     "role": "admin"
+   }
+   ```
+4. Click **Send** to create an account.
+
+### Access Account (Login):
+
+1. Select **Access Account**.
+2. Set the request body to **raw JSON** and provide:
+   ```json
+   {
+     "email": "existingMember@example.com",
+     "password": "securePassword123"
+   }
+   ```
+3. Click **Send** to log in. The response will include `access_token` and `refresh_token`, which Postman will store.
+
+### Get Current Session:
+
+1. Select **Get Current Session**.
+2. Click **Send** to retrieve user details.
+
+### End Session (Logout):
+
+1. Select **End Session**.
+2. Click **Send** to log out.
+
+## 6. Test Member Management Endpoints
+
+### Update Member Details:
+
+1. Select **Update Member Details**.
+2. Set the request body to **raw JSON**:
+   ```json
+   {
+     "fullName": "Updated Name",
+     "bio": "Updated bio information"
+   }
+   ```
+3. Click **Send** to update the member details.
+
+### Upload Profile Picture:
+
+1. Select **Upload Profile Picture**.
+2. Use **POST** with **form-data**.
+3. Add a key `avatar` and upload an image.
+4. Click **Send**.
+
+### Follow a Member:
+
+1. Select **Follow a Member**.
+2. Replace `:memberId` in the URL.
+3. Click **Send**.
+
+## 7. Test Content Post Management Endpoints
+
+### Create Content Post:
+
+1. Select **Create Content Post**.
+2. Use **POST** with **form-data**.
+3. Add `content`: "This is my first post."
+4. Upload at least 4 images.
+5. Click **Send**.
+
+### Like a Post:
+
+1. Select **Like a Post**.
+2. Replace `:postId` in the URL.
+3. Click **Send**.
+
+### Delete a Post:
+
+1. Select **Delete a Post**.
+2. Replace `:postId` in the URL.
+3. Click **Send**.
+
+## 8. Test Comment Management Endpoints
+
+### Create a Comment:
+
+1. Select **Create a Comment**.
+2. Set the request body to **raw JSON**:
+   ```json
+   {
+     "content": "This is a comment on the post"
+   }
+   ```
+3. Click **Send**.
+
+### Like a Comment:
+
+1. Select **Like a Comment**.
+2. Replace `:commentId` in the URL.
+3. Click **Send**.
+
+### Delete a Comment:
+
+1. Select **Delete a Comment**.
+2. Replace `:commentId` in the URL.
+3. Click **Send**.
+
+## 7. Test Chat Management Endpoints
+
+### Create a Chat:
+
+- Select the **Create a Chat** request.
+- Set the request body to `raw` and `JSON`.
+- Provide the following sample payload:
+  ```json
+  {
+    "participants": ["memberId1", "memberId2"]
+  }
+  ```
+- Click **Send** to create the chat
+  You can add as much participants as you want using the foemat above
+
+### Send a Message:
+
+- Select the **Send a Message** request.
+- Replace `:chatId` in the URL with the ID of the chat.
+- Set the request body to `raw` and `JSON`.
+- Provide the following sample payload:
+  ```json
+  {
+    "message": "Hello, this is a test message for BoroHubMedia"
+  }
+  ```
+- Click **Send** to send the message.
+
+### Delete a Chat:
+
+- Select the **Delete a Chat** request.
+- Replace `:chatId` in the URL with the ID of the chat you want to delete.
+- Click **Send** to delete the chat.
+
+---
+
+## 10. Test Other Endpoints
+
+You can test additional endpoints following the same procedures. Select the appropriate request from the Postman collection, modify parameters, and click **Send**.
+
+## 11. Test Error Handling
+
+### Invalid Login Attempts:
+
+- Use incorrect credentials for **Access Account**.
+- Observe `429 Too Many Requests` after multiple failures.
+
+### Unauthorized Access:
+
+- Try accessing protected endpoints without logging in.
+- Observe `401 Unauthorized` error.
+
+### Resource Not Found:
+
+- Access a non-existent resource (e.g., invalid `postId`).
+- Observe `404 Not Found` error.
+
+## 12. Additional Tips
+
+### Use Postman Environments:
+
+- Switch between environments (e.g., development, production) for testing.
+
+### Save Responses:
+
+- Store request/response pairs for reference.
+
+### Debugging:
+
+- Use **View > Show Postman Console** to debug requests and responses.
+
+## Prerequisites for Creating Your Database and .env File
+
+Before running the API, make sure you have the following software installed:
+
+- [MongoDB](https://www.mongodb.com/): Database management system used to store data for the API.
+
+## Installation Instructions
+
+Follow the links above to download MongoDB.
 
 ### Step 3. Set Up MongoDB Connection
 
@@ -115,13 +347,8 @@ You can either use **MongoDB Atlas (cloud)** or install **MongoDB locally**.
 ### Step 4. Create a `.env` File
 
 In the BoroHubMedia_Backend directory, create a `.env` file to store your environment variables:
-Start by installing the dotenv package:
 
-```bash
-npm install dotenv
-```
-
-Then create the .env file:
+Create the .env file:
 
 ```bash
 touch .env
