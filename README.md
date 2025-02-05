@@ -126,6 +126,7 @@ This will display the Swagger documentation for the API.
 ### Set Up Environment Variables:
 
 - In Postman, create a new environment (e.g., I used **borohubmedia**).
+- Ensure the environment is written like this: `{{borohubmedia}}` before adding endpoints(e.g `{{borohubmedia}}`auth/initializeAccount)
 - Add the following variables:
   - `base_url`: `http://localhost:3000/api/` (or your server's base URL).
   - `access_token`: Leave blank; it will be populated automatically after authentication.
