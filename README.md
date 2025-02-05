@@ -105,7 +105,10 @@ Get the current working directory, if true proceed to next step
 
 # Start the server
 
+```bash
 npm start
+```
+
 Alternatively, for development mode with automatic restarts:
 
 ```bash
