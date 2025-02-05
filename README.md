@@ -125,9 +125,9 @@ This will display the Swagger documentation for the API.
 
 ### Set Up Environment Variables:
 
-- In Postman, create a new environment (e.g., **BoroHubMedia**).
+- In Postman, create a new environment (e.g., I used **borohubmedia**).
 - Add the following variables:
-  - `base_url`: `http://localhost:3000` (or your server's base URL).
+  - `base_url`: `http://localhost:3000/api/` (or your server's base URL).
   - `access_token`: Leave blank; it will be populated automatically after authentication.
   - `refresh_token`: Leave blank; it will be populated automatically after authentication.
 
@@ -145,9 +145,10 @@ This will display the Swagger documentation for the API.
      "emailAddress": "youremail@example.com",
      "plainPassword": "yourPassword123",
      "aboutMe": "A brief description about yourself",
-     "role": "admin"
+     "role": "member"
    }
    ```
+   Role can either be member or admin
 4. Click **Send** to create an account.
 
 ### Access Account (Login):
