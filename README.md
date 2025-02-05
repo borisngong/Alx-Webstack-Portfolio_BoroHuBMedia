@@ -95,7 +95,7 @@ npm install dotenv
 
 ## 3. Run the API
 
-# Ensure you're in the BoroHubMedia_Backend directory
+Ensure you're in the BoroHubMedia_Backend directory
 
 ```bash
 pwd
