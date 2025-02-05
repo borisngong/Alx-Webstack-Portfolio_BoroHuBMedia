@@ -400,7 +400,7 @@ UPLOADS_BASE_URL="http://localhost:3000" # Change to your server URL
 REFRESH_JWT="<your_refresh_token_here>"
 SKEY_JWT_REFRESH="<your_refresh_secret_key_here>"
 EXP_JWT_REFRESH="<refresh_expiration_time>"
-
+```
 ## N.B
 
 - Ensure that you replace the placeholder with actual values values (like `<expiration_time>`, `your_secret_key_here`, `<your_refresh_token_here>`, `<username>`, `<password>`, etc.) with your actual credentials and preferred settings.
