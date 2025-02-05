@@ -508,11 +508,13 @@ The API's routes are organized under specific paths based on their functionaliti
 
 ## Summary
 
-To access any of the above functionalities, append the relevant endpoint to the base URL. For example, to create a new content post, you would use:
+To access any of the above functionalities, append the relevant endpoint to the base URL if you havn't ser environment in either Postman, Insomnia etc. For example, to create a new content post, you would use:
 
 ```plaintext
 POST http://localhost:3000/api/content/create-content-images/:memberID
 ```
+
+Remeber to replace **Port Number** with actual port you're using
 
 ## API Endpoints
 
