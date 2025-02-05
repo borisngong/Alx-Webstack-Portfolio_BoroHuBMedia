@@ -1,5 +1,5 @@
 const express = require('express');
-const helmet = require('helmet');
+const path = require('path');
 const setupMiddleware = require('./middlewares/setupMiddleware');
 const setupSwagger = require('./swagger/setupSwagger');
 const memberRoute = require('./_bd_api/membersRoutes');
@@ -25,7 +25,13 @@ const setupServer = () => {
   // Swagger setup
   setupSwagger(app);
 
-  app.use(helmet());
+  app.use(
+    '/media/images',
+    express.static(path.join(__dirname, 'media/images')),
+  );
+
+  //
+
   // Rate limiter for general API endpoints setup to limit requests
   app.use('/api', apiLimiter);
 
