@@ -391,7 +391,7 @@ To configure your environment variables, create a `.env` file in the `BoroHubMed
 
 To configure your environment variables, create a `.env` file in the `BoroHubMedia_Backend` directory and add the following variables:
 
-````plaintext
+```plaintext
 PORT=3000
 DB_URI="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority&appName=<appName>"
 SKEY_JWT="<your_secret_key_here>"
@@ -401,6 +401,7 @@ REFRESH_JWT="<your_refresh_token_here>"
 SKEY_JWT_REFRESH="<your_refresh_secret_key_here>"
 EXP_JWT_REFRESH="<refresh_expiration_time>"
 ```
+
 ## N.B
 
 - Ensure that you replace the placeholder with actual values values (like `<expiration_time>`, `your_secret_key_here`, `<your_refresh_token_here>`, `<username>`, `<password>`, etc.) with your actual credentials and preferred settings.
@@ -417,7 +418,6 @@ EXP_JWT_REFRESH="<refresh_expiration_time>"
 - **`EXP_JWT_REFRESH`**: Expiration time for refresh tokens.
 - **`REFRESH_JWT`**: Refresh token for authentication.
 
-
 ---
 
 You can now proceed to run the api with your .env and Database following step 3 above **RUN API**
@@ -432,7 +432,7 @@ The default base URL for the server is:
 
 ```plaintext
 http://localhost:3000
-````
+```
 
 If you are running the API on a different port, remember to replace localhost:3000 with the appropriate base URL.
 
