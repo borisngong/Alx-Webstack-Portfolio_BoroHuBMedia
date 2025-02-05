@@ -103,7 +103,7 @@ pwd
 
 Get the current working directory, if true proceed to next step
 
-# Start the server
+## Start the server
 
 ```bash
 npm start
@@ -117,7 +117,7 @@ npm run dev
 
 Nodeman automatically restarts the server when changes made to the code are saved
 
-# Verify the Server is Running
+## Verify the Server is Running
 
 To ensure that the server is running correctly:
 
