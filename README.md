@@ -12,7 +12,7 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 
 ### Diagram Explanation
 
-- **Client**: Represents the members accessing the API through various clients like mobile apps or web applications.
+- **Client**: Represents the members accessing the API through various clients like mobile apps or web applications/browsers.
 - **API Server**: Built with Node.js and Express, handling requests and responses.
 - **Database**: MongoDB serves as the data storage layer, managing member data, posts, comments, and chats.
 - **Authentication**: Demonstrates how member authentication is managed through JWT tokens.
@@ -20,10 +20,10 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 ## Features
 
 - **Authentication Management**: Account initialization, access Account(login), endSession(logout), and session retrieval.
-- **Member Management**: Profile updates, following/unfollowing, and member restrictions(block/unblock), member access token refresh.
-- **Content Post Management**: Create, update, retrieve, like/unlike, and delete posts.
-- **Comment Management**: Create, update, retrieve, like/unlike, reply to comments, like/dislike comment replies, and delete comments.
-- **Chat Management**: Create chat, chatEntry(send messages), retrieve and delete chat capabilities for members.
+- **Member Management**: Profile updates, following/unfollowing, and member restrictions(block/unblock), member access token refresh
+- **Content Post Management**: Create, update, retrieve, like/unlike, and delete posts
+- **Comment Management**: Create, update, retrieve, like/unlike, reply to comments, like/dislike comment replies, and delete comments
+- **Chat Management**: Create chat, chatEntry(send messages), retrieve and delete chat capabilities for members
 
 ## Architectural Overview
 
