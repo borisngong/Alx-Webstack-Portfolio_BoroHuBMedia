@@ -900,10 +900,7 @@ This API provides endpoints for managing chat functionalities, including creatin
 
 ### Additional Information
 
-For detailed information on request parameters, response formats, and example payloads, please refer to the Postman collection, which contains comprehensive documentation for each endpoint.
-
-Please explore the Postman collection for more insights into managing authentication, members, content posts, feedback comments, and chat functionalities.
-The Postman collection link can be found below in the documentation section.
+For detailed information on request parameters, response formats, and example payloads, please refer to the Postman collection above, which contains comprehensive documentation for each endpoint.
 
 ## Project Structure
 
