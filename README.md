@@ -2,6 +2,41 @@
 
 A backend REST API for a social media platform with basic CRUD operations for members, posts, comments and chats.
 
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Architecture Diagram](#architecture-diagram)
+4. [Diagram Explanation](#diagram-explanation)
+   - [Components](#components)
+   - [Overview](#architectural-overview)
+5. [HTTP Status Codes](#http-status-codes)
+   - [Success Codes](#success-codes)
+   - [Client Errors](#client-error-codes)
+   - [Server Errors](#server-error-codes)
+   - [Error Responses](#error-responses)
+6. [Setup and Testing Guide](#step-by-step-guide-to-set-up-and-test-the-api)
+   - [Clone Repository](#1-clone-repository)
+   - [BoroHubMedia_Backend](#boroHubMedia_Backend)
+   - [Install Dependencies](#2-install-dependencies)
+   - [Run the API](#3-run-the-api)
+   - [Verify Server](#verify-the-server-is-running)
+   - [Set Up Postman](#4-set-up-postman)
+   - [Test Endpoints](#test-endpoints)
+   - [Additional Tips](#12-additional-tips)
+7. [Testing Prerequisites](#prerequisites-for-testing-boroHubMedia-api-by-creating-your-database-and-env-file)
+   - [MongoDB Setup](#step-1-set-up-mongodb-connection)
+   - [.env File](#step-2-create-a-env-file)
+   - [Configure Variables](#step-3-configure-environment-variables)
+8. [Project Structure](#project-structure)
+9. [Definitions](#definitions)
+10. [Common Issues](#common-issues)
+11. [Future Features](#features-to-add)
+12. [Optimization Plans](#optimization-plans)
+13. [User Experience](#user-experience)
+14. [About the Author](#about-the-author)
+15. [Connect with Me](#connect-with-me)
+
 ## Introduction
 
 BoroHubMedia is a backend REST API for a social media platform. It is built using Node.js, Express, and MongoDB and has endpoints for authenticating members, member management, posts, comments and chats. The API provides member authentication, member management, post and comment functionalities, likes/dislikes, and robust error checking and response utilities.
@@ -172,8 +207,7 @@ To ensure that the server is running correctly:
 http://localhost:3000/api-docs
 ```
 
-This will display the Swagger documentation for the API.
-This will display the Swagger documentation for the API.
+This will display the Swagger documentation(VIEW-ONLY) for the API.
 
 2. **Check your terminal** for the following messages:
 
