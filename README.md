@@ -25,7 +25,7 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
   - **GET**: Retrieve data.
   - **POST**: Create new data.
   - **PUT**: Update existing data.
-  - **DELETE**: Remove data.
+  - **DELETE**: Remove/Delete data.
 
 - **Logging and Monitoring**: Tracks all requests and responses, providing data for auditing purposes and assisting in troubleshooting any issues that arise.
 
