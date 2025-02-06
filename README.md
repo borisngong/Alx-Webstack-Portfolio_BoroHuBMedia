@@ -18,7 +18,7 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 
 - **API Gateway**: Serves as a central hub that mediates between the client and backend services. It processes incoming requests and routes them to the appropriate service, managing responses back to the client.
 
-- **JWT Service**: Responsible for authentication, this service issues and validates JSON Web Tokens (JWT) to ensure that users are authorized to access specific resources.
+- **JWT Service**: Responsible for authentication, this service issues and validates JSON Web Tokens (JWT) to ensure that members are authorized to access specific resources.
 
 - **CRUD Operations**: Represents the essential operations for managing resources within the API:
 
