@@ -6,6 +6,14 @@ A backend REST API for a social media platform with basic CRUD operations for me
 
 BoroHubMedia is a backend REST API for a social media platform. It is built using Node.js, Express, and MongoDB and has endpoints for authenticating members, member management, posts, comments and chats. The API provides member authentication, member management, post and comment functionalities, likes/dislikes, and robust error checking and response utilities.
 
+## Features
+
+- **Authentication Management**: Account initialization, access Account(login), endSession(logout), and session retrieval.
+- **Member Management**: Profile updates, following/unfollowing, and member restrictions(block/unblock), member access token refresh
+- **Content Post Management**: Create, update, retrieve, like/unlike, and delete posts
+- **Comment Management**: Create, update, retrieve, like/unlike, reply to comments, like/dislike comment replies, and delete comments
+- **Chat Management**: Create chat, chatEntry(send messages), retrieve and delete chat capabilities for members
+
 ## Architecture Diagram
 
 ![Architecture Diagram](BoroHubMedia_Backend/media/images/BoroHubMedia_Art.png)
@@ -30,14 +38,6 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 - **Logging and Monitoring**: Tracks all requests and responses, providing data for auditing purposes and assisting in troubleshooting any issues that arise.
 
 - **Data Storage**: Utilizes MongoDB to store and retrieve data, ensuring persistent storage of resources managed by the API.
-
-## Features
-
-- **Authentication Management**: Account initialization, access Account(login), endSession(logout), and session retrieval.
-- **Member Management**: Profile updates, following/unfollowing, and member restrictions(block/unblock), member access token refresh
-- **Content Post Management**: Create, update, retrieve, like/unlike, and delete posts
-- **Comment Management**: Create, update, retrieve, like/unlike, reply to comments, like/dislike comment replies, and delete comments
-- **Chat Management**: Create chat, chatEntry(send messages), retrieve and delete chat capabilities for members
 
 ## Architectural Overview
 
