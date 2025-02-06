@@ -76,7 +76,7 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 
 ## Architectural Overview
 
-The BoroHubMedia API is structured in a modular way, allowing for clear separation of concerns and maintainability. Here’s a high-level overview of the architecture:
+The BoroHubMedia API is structured in a modular way, allowing for clear separation of concerns and maintainability. Here’s an overview of the BoroHubMedia architecture:
 
 1. **Server**: The API is built on an Express server, which handles incoming requests and routes them to the appropriate controllers.
 
@@ -116,7 +116,6 @@ The API employs comprehensive error handling to ensure a smooth member experienc
 ### Server Error Codes
 
 - **500 Internal Server Error**: The server encountered an unexpected condition that prevented it from fulfilling the request.
-- **503 Service Unavailable**: The server is currently unable to handle the request due to temporary overloading or maintenance.
 
 ### Error Responses
 
@@ -129,7 +128,9 @@ Error responses will include a JSON object with a message detailing the error. F
 }
 ```
 
-Additionally, the API utilizes a custom error handling function called BDERROR to standardize error responses. It also provides utility functions, sendSuccessResponse and sendErrorResponse, to ensure that all responses are formatted uniformly. This enhances the overall user experience by providing clear and consistent feedback to the client.
+Additionally, the API utilizes a custom error handling function called **BDERROR** to standardize error responses.
+It also provides utility functions, **sendSuccessResponse** and **sendErrorResponse**, to ensure that all responses are formatted uniformly.
+This enhances the overall user experience by providing clear and consistent feedback to the client.
 
 # Step-by-Step Guide to Set Up and Test the API
 
