@@ -10,12 +10,26 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 
 ![Architecture Diagram](BoroHubMedia_Backend/media/images/BoroHubMedia_Art.png)
 
-### Diagram Explanation
+# Diagram Explanation
 
-- **Client**: Represents the members accessing the API through various clients like mobile apps or web applications/browsers.
-- **API Server**: Built with Node.js and Express, handling requests and responses.
-- **Database**: MongoDB serves as the data storage layer, managing member data, posts, comments, and chats.
-- **Authentication**: Demonstrates how member authentication is managed through JWT tokens.
+## Components
+
+- **Client**: The starting point that initiates requests to the API, allowing users to interact with the system.
+
+- **API Gateway**: Serves as a central hub that mediates between the client and backend services. It processes incoming requests and routes them to the appropriate service, managing responses back to the client.
+
+- **JWT Service**: Responsible for authentication, this service issues and validates JSON Web Tokens (JWT) to ensure that users are authorized to access specific resources.
+
+- **CRUD Operations**: Represents the essential operations for managing resources within the API:
+
+  - **GET**: Retrieve data.
+  - **POST**: Create new data.
+  - **PUT**: Update existing data.
+  - **DELETE**: Remove data.
+
+- **Logging and Monitoring**: Tracks all requests and responses, providing data for auditing purposes and assisting in troubleshooting any issues that arise.
+
+- **Data Storage**: Utilizes MongoDB to store and retrieve data, ensuring persistent storage of resources managed by the API.
 
 ## Features
 
