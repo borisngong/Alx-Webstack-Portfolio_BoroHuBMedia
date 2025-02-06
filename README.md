@@ -6,6 +6,17 @@ A backend REST API for a social media platform with basic CRUD operations for me
 
 BoroHubMedia is a backend REST API for a social media platform. It is built using Node.js, Express, and MongoDB and has endpoints for authenticating members, member management, posts, comments and chats. The API provides member authentication, member management, post and comment functionalities, likes/dislikes, and robust error checking and response utilities.
 
+## Architecture Diagram
+
+![Architecture Diagram](BoroHubMedia_Backend/media/images/BoroHubMedia_Art.png)
+
+### Diagram Explanation
+
+- **Client**: Represents the members accessing the API through various clients like mobile apps or web applications.
+- **API Server**: Built with Node.js and Express, handling requests and responses.
+- **Database**: MongoDB serves as the data storage layer, managing member data, posts, comments, and chats.
+- **Authentication**: Demonstrates how member authentication is managed through JWT tokens.
+
 ## Features
 
 - **Authentication Management**: Account initialization, access Account(login), endSession(logout), and session retrieval.
@@ -13,6 +24,26 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 - **Content Post Management**: Create, update, retrieve, like/unlike, and delete posts.
 - **Comment Management**: Create, update, retrieve, like/unlike, reply to comments, like/dislike comment replies, and delete comments.
 - **Chat Management**: Create chat, chatEntry(send messages), retrieve and delete chat capabilities for members.
+
+## Architectural Overview
+
+The BoroHubMedia API is structured in a modular way, allowing for clear separation of concerns and maintainability. Here’s a high-level overview of the architecture:
+
+1. **Server**: The API is built on an Express server, which handles incoming requests and routes them to the appropriate controllers.
+
+2. **Controllers**: Each controller (e.g., `MemberController`, `ContentController`) contains static methods that define the logic for handling requests related to specific resources. They interact with the models to perform CRUD operations and return responses.
+
+3. **Models**: The API uses Mongoose models (e.g., `Member`, `Content`, `Comment`) to define the structure of the data stored in MongoDB. These models represent the database schema and provide methods for interacting with the database.
+
+4. **Middleware**: Middleware functions (e.g., for authentication, error handling, CORS) are used to process requests before they reach the controllers. This allows for reusable logic that can be applied to multiple routes.
+
+5. **Routes**: The API defines routes for different functionalities (e.g., authentication, member management, content management) that map to the appropriate controller methods.
+
+6. **Error Handling**: A centralized error handling mechanism ensures that errors are caught and formatted consistently, providing meaningful feedback to clients.
+
+7. **Database**: MongoDB is used as the database to store member information, posts, comments, and chat data. The API connects to the database using Mongoose.
+
+This architecture promotes scalability and maintainability, making it easier to add new features and manage existing ones.
 
 ## HTTP Status Codes and Error Handling
 
@@ -529,16 +560,18 @@ This API provides endpoints for member authentication, including account initial
    - **POST** `/api/auth/initializeAccount`
    - **How to Run**: To create a new member account, send a POST request to this endpoint with the following JSON body in the request:
    - **Example Request**:
-     ```json
-     {
-       "fullName": "Your Full Name",
-       "handle": "yourHandle",
-       "emailAddress": "youremail@example.com",
-       "plainPassword": "yourPassword123",
-       "aboutMe": "A brief description about yourself",
-       "role": "admin"
-     }
-     ```
+
+   ```json
+   {
+     "fullName": "Your Full Name",
+     "handle": "yourHandle",
+     "emailAddress": "youremail@example.com",
+     "plainPassword": "yourPassword123",
+     "aboutMe": "A brief description about yourself",
+     "role": "admin"
+   }
+   ```
+
    - **Role**: Member roles can either be admin or member, so fill in appropriately in the role field
    - **Note**: Joi is used for input validation, and the password is hashed using bcrypt.
 
@@ -547,12 +580,13 @@ This API provides endpoints for member authentication, including account initial
    - **POST** `/api/auth/accessAccount`
    - **How to Run**: To log in, send a POST request to this endpoint with the member's email and password in the request body. Rate limiting is applied to prevent abuse.
    - **Example Request**:
-     ```json
-     {
-       "email": "existingMember@example.com",
-       "password": "securePassword123"
-     }
-     ```
+
+   ```json
+   {
+     "email": "existingMember@example.com",
+     "password": "securePassword123"
+   }
+   ```
 
 3. **End Session**:
 
@@ -589,12 +623,13 @@ This API provides endpoints for managing member accounts, including functionalit
    - **PUT** `/api/member/update/:memberId`
    - **How to Run**: Authenticated members can update their details by sending a PUT request to this endpoint with the updated information in the request body.
    - **Example Request**:
-     ```json
-     {
-       "fullName": "Updated Name",
-       "bio": "Updated bio information"
-     }
-     ```
+
+   ```json
+   {
+     "fullName": "Updated Name",
+     "bio": "Updated bio information"
+   }
+   ```
 
 5. **Follow a Member**:
 
@@ -604,7 +639,7 @@ This API provides endpoints for managing member accounts, including functionalit
 6. **Unfollow a Member**:
 
    - **DELETE** `/api/member/unfollow/:memberId`
-   - **How to Run**: Authenticated members can unfollow a member by sending a DELETE request to this endpoint with the member's unique identifier (`memberId`). This removes the member ID from the followers array of the member being unfollowed.
+   - **How to Run**: Members can remove their like from a specific comment by sending a DELETE request to this endpoint with the comment's ID. Only the author of the comment or an admin can delete it if it doesn't adhere to rules.
 
 7. **Get Followers List**:
 
@@ -818,7 +853,7 @@ This API provides endpoints for managing chat functionalities, including creatin
 
 For detailed information on request parameters, response formats, and example payloads, please refer to the Postman collection, which contains comprehensive documentation for each endpoint.
 
-Please explore the Postman collection for more insights into managing authentication, members, content posts, feedback comments and chat functionalities.
+Please explore the Postman collection for more insights into managing authentication, members, content posts, feedback comments, and chat functionalities.
 The Postman collection link can be found below in the documentation section.
 
 ## Project Structure
@@ -960,3 +995,19 @@ Hi, I'm Ngong Boris Kukwah, an ALX Africa Fullstack Software Engineering student
 - **GitHub**: [borisngong](https://github.com/borisngong)
 - **APIDOCUMENTATION**: [BoroHubMedia API Documentation](https://documenter.getpostman.com/view/40210928/2sAYQggTiW)
 - **TestDocumentationInPostman**: [BoroHubMedia API Test](https://www.postman.com/joint-operations-specialist-41505418/workspace/my-workspace/request/40210928-2b7fd524-3d0d-4693-9710-815f0c9471e4?action=share&creator=40210928&ctx=documentation&active-environment=40210928-c969341f-fbc9-401b-bb4c-d32e6f52f988)
+  <environment_details>
+
+# VSCode Visible Files
+
+Alx-Webstack-Portfolio_BoroHuBMedia/BoroHubMedia_Backend/package-lock.json
+
+# VSCode Open Tabs
+
+Alx-Webstack-Portfolio_BoroHuBMedia/BoroHubMedia_Backend/.env
+Alx-Webstack-Portfolio_BoroHuBMedia/BoroHubMedia_Backend/.gitignore
+Alx-Webstack-Portfolio_BoroHuBMedia/BoroHubMedia_Backend/controllers/memberControllers.js
+Alx-Webstack-Portfolio_BoroHuBMedia/BoroHubMedia_Backend/serverCore.js
+Alx-Webstack-Portfolio_BoroHuBMedia/BoroHubMedia_Backend/middlewares/setupMiddleware.js
+Alx-Webstack-Portfolio_BoroHuBMedia/BoroHubMedia_Backend/package-lock.json
+Alx-Webstack-Portfolio_BoroHuBMedia/README.md
+</environment_details>
