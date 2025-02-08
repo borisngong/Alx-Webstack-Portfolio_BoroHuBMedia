@@ -59,8 +59,8 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 - **Morgan**: Provides HTTP request logging.by monitoring all the requests that come to our API.
 - **Joi**: Validates incoming data requests.by checking iif the data that comes to our API is correct.
 - **Rate Limiting**:
-                   Access Limiter: Limits login attempts to prevent brute force attacks, allowing a maximum of 5 login attempts within a 5-minute window.
-                   General API Limiter: Limits the number of requests to general API endpoints, allowing a maximum of 100 requests per 15 minutes from each IP address.
+  **Access Limiter**: Limits login attempts to prevent brute force attacks, allowing a maximum of 5 login attempts within a 5-minute window.
+  **General API Limiter**: Limits the number of requests to general API endpoints, allowing a maximum of 100 requests per 15 minutes from each IP address.
 - **Helmet**: The API also uses helmet  to improve security by setting important HTTP headers.
 - **Mongoose**: ODM library for MongoDB and Node.js.
 - **JWT (JSON Web Tokens)**: For secure authentication and authorization.
