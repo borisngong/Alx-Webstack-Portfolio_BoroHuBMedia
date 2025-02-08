@@ -6,16 +6,17 @@ A backend REST API for a social media platform with basic CRUD operations for me
 
 1. [Introduction](#introduction)
 2. [Features](#features)
-3. [Architecture Diagram](#architecture-diagram)
-4. [Diagram Explanation](#diagram-explanation)
+3. [Technologies Used](#technologies-used)
+4. [Architecture Diagram](#architecture-diagram)
+5. [Diagram Explanation](#diagram-explanation)
    - [Components](#components)
    - [Overview](#architectural-overview)
-5. [HTTP Status Codes](#http-status-codes)
+6. [HTTP Status Codes](#http-status-codes)
    - [Success Codes](#success-codes)
    - [Client Errors](#client-error-codes)
    - [Server Errors](#server-error-codes)
    - [Error Responses](#error-responses)
-6. [Setup and Testing Guide](#step-by-step-guide-to-set-up-and-test-the-api)
+7. [Setup and Testing Guide](#step-by-step-guide-to-set-up-and-test-the-api)
    - [Clone Repository](#1-clone-repository)
    - [BoroHubMedia_Backend](#boroHubMedia_Backend)
    - [Install Dependencies](#2-install-dependencies)
@@ -24,18 +25,18 @@ A backend REST API for a social media platform with basic CRUD operations for me
    - [Set Up Postman](#4-set-up-postman)
    - [Test Endpoints](#test-endpoints)
    - [Additional Tips](#12-additional-tips)
-7. [Testing Prerequisites](#prerequisites-for-testing-boroHubMedia-api-by-creating-your-database-and-env-file)
+8. [Testing Prerequisites](#prerequisites-for-testing-boroHubMedia-api-by-creating-your-database-and-env-file)
    - [MongoDB Setup](#step-1-set-up-mongodb-connection)
    - [.env File](#step-2-create-a-env-file)
    - [Configure Variables](#step-3-configure-environment-variables)
-8. [Project Structure](#project-structure)
-9. [Definitions](#definitions)
-10. [Common Issues](#common-issues)
-11. [Future Features](#features-to-add)
-12. [Optimization Plans](#optimization-plans)
-13. [User Experience](#user-experience)
-14. [About the Author](#about-the-author)
-15. [Connect with Me](#connect-with-me)
+9. [Project Structure](#project-structure)
+10. [Definitions](#definitions)
+11. [Common Issues](#common-issues)
+12. [Future Features](#features-to-add)
+13. [Optimization Plans](#optimization-plans)
+14. [User Experience](#user-experience)
+15. [About the Author](#about-the-author)
+16. [Connect with Me](#connect-with-me)
 
 ## Introduction
 
@@ -48,6 +49,25 @@ BoroHubMedia is a backend REST API for a social media platform. It is built usin
 - **Content Post Management**: Create, update, retrieve, like/unlike, and delete posts
 - **Comment Management**: Create, update, retrieve, like/unlike, reply to comments, like/dislike comment replies, and delete comments
 - **Chat Management**: Create chat, chatEntry(send messages), retrieve and delete chat capabilities for members
+
+## Technologies Used
+
+- **Node.js**: JavaScript runtime for server-side development.
+- **Express**: Web framework for building APIs.
+- **MongoDB**: NoSQL database for data storage.
+- **Multer**: Helps in uploading files(images) securely
+- **Morgan**: Provides HTTP request logging.by monitoring all the requests that come to our API.
+- **Joi**: Validates incoming data requests.by checking iif the data that comes to our API is correct.
+- **Rate Limiting**:
+                   Access Limiter: Limits login attempts to prevent brute force attacks, allowing a maximum of 5 login attempts within a 5-minute window.
+                   General API Limiter: Limits the number of requests to general API endpoints, allowing a maximum of 100 requests per 15 minutes from each IP address.
+- **Helmet**: The API also uses helmet  to improve security by setting important HTTP headers.
+- **Mongoose**: ODM library for MongoDB and Node.js.
+- **JWT (JSON Web Tokens)**: For secure authentication and authorization.
+- **Swagger**: API documentation tool for interactive API exploration and available when the server is started
+- **Postman**: API Documentation and testing tool for sending requests and viewing responses.
+- **dotenv**: For managing environment variables.
+- **Nodemon**: Automatically restarts the server during development.
 
 ## Architecture Diagram
 
